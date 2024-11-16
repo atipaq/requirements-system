@@ -63,3 +63,14 @@ Crea un archivo .env en la carpeta frontend con el siguiente contenido:
 ```
 REACT_APP_BACKEND_URL=http://localhost:3001
 ```
+
+### Estructura del Proyecto
+
+- `src/`: Contiene el código fuente.
+  - `src/data/`: Almacena entidades, migraciones y repositorios de la base de datos.
+- `storage/`: Contiene el archivo de base de datos SQLite (`database.sqlite`).
+
+### Notas para el equipo:
+
+- La carpeta `storage/` es usada únicamente para almacenar la base de datos generada. No confundir con `src/data/`, que contiene el código fuente relacionado con la base de datos.
+- La base de datos nunca debe subirse al repositorio. Está ignorada en `.gitignore`.
