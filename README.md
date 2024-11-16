@@ -54,6 +54,7 @@ Crea un archivo .env en la carpeta backend con el siguiente contenido:
 ```
 PORT=3001
 JWT_SECRET=my_super_secret_key
+REACT_APP_BACKEND_URL=http://localhost:3001
 NODE_ENV=development
 ```
 
