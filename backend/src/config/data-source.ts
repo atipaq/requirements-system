@@ -1,4 +1,4 @@
-// src/config/data-source.ts
+//backend/src/config/data-source.ts
 import "reflect-metadata"
 import { DataSource } from 'typeorm';
 // Importar entidades o modelos
