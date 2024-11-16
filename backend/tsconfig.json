@@ -22,7 +22,10 @@
     /* Type Checking */
     "strict": true,                                      /* Enable all strict type-checking options. */
     "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    
+    /* Added Types */
+    "types": ["node", "express"]  // Añadido
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
