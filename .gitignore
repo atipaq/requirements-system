@@ -1,7 +1,9 @@
-# Ignorar la base de datos SQLite
-database.sqlite
+# Ignorar base de datos
+/data/*.sqlite
+
 # Ignorar archivo macOS
 .DS_Store
+
 # Logs
 logs
 *.log
