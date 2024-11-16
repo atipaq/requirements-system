@@ -1,6 +1,6 @@
 # Ignorar base de datos
-data/
-data/*.sqlite
+storage/
+storage/*.sqlite
 
 # Ignorar archivo macOS
 .DS_Store
