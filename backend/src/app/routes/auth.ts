@@ -1,9 +1,10 @@
 // src/routes/authRoutes.ts
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { AppDataSource } from "../../config/data-source";
 import { User } from '../../data/entities/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+
 
 const router = Router();
 
