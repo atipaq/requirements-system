@@ -47,8 +47,9 @@ npm start
 ### 4. Variables de entorno
 
 Ambas carpetas (backend y frontend) utilizan archivos .env para la configuración de variables sensibles.
+
 Backend .env:
-Crea un archivo .env en la carpeta backend con el siguiente contenido (ajusta los valores según sea necesario):
+Crea un archivo .env en la carpeta backend con el siguiente contenido:
 
 ```
 PORT=3001
