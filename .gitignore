@@ -1,4 +1,5 @@
 # Ignorar base de datos
+data/
 data/*.sqlite
 
 # Ignorar archivo macOS
