@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// frontend/src/view/RegistroOrganizacion.js
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/stylesRegistroOrganizacion.css';
 import axios from "axios";
@@ -6,6 +7,7 @@ import axios from "axios";
 const RegistroOrganizacion = () => {
     const navigate = useNavigate();
 
+    // Datos controlados por el usuario
     const [nombre, setNombre] = useState("");
     const [direccion, setDireccion] = useState("");
     const [telefonoOrganizacion, setTelefonoOrganizacion] = useState("");
@@ -16,7 +18,31 @@ const RegistroOrganizacion = () => {
     const [telefonoContacto, setTelefonoContacto] = useState("");
     const [estado, setEstado] = useState("");
     const [comentario, setComentario] = useState("");
+
+    // Datos automáticos
+    const [codigo, setCodigo] = useState("");
+    const [version, setVersion] = useState("0.01");
+    const [fecha, setFecha] = useState("");
+    const [tipo, setTipo] = useState("Contratante");
+    const [autor, setAutor] = useState("AUT-00.00");
+
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Simular la obtención de datos automáticos desde el servidor
+        const fetchAutomaticData = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/organizations/last");
+                const nextCode = response.data.nextCode || "ORG-001";
+                setCodigo(nextCode);
+                setFecha(new Date().toLocaleDateString());
+            } catch (err) {
+                console.error("Error al obtener datos automáticos:", err);
+                setError("No se pudieron cargar los datos automáticos.");
+            }
+        };
+        fetchAutomaticData();
+    }, []);
 
     const irAMenuOrganizaciones = () => {
         navigate("/menuOrganizaciones");
@@ -27,6 +53,11 @@ const RegistroOrganizacion = () => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:5000/api/organizations", {
+                orgcod: codigo,
+                orgver: version,
+                orgfeccrea: fecha,
+                orgtiporgcod: tipo,
+                orgautcod: autor,
                 orgnom: nombre,
                 orgdir: direccion,
                 orgtel: telefonoOrganizacion,
@@ -88,6 +119,7 @@ const RegistroOrganizacion = () => {
                     </section>
 
                     <section className="ro-organization-section">
+                        {/* Formulario editable */}
                         <h3>Información del Proyecto</h3>
                         <div className="ro-cod-vers">
                             <div className="ro-fiel-cod">

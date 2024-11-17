@@ -56,11 +56,13 @@ export const registerOrganization = async (req: Request, res: Response) => {
         // Crear un nuevo registro con valores automáticos y datos recibidos
         const newOrganization = OrganizationRepository.create({
             orgcod: nextCode,
-            orgver: 0.01, // Versión inicial
+            orgver: req.body.orgver || 0.01, // Versión inicial
             orgfeccrea: new Date(), // Fecha de creación actual
             orgfecmod: new Date(), // Fecha de modificación actual
             orgtiporgcod: "Contratante", // Tipo de organización predeterminado
-            orgautcod: "AUT-00.00", // Autor predeterminado
+            orgautcod: req.body.orgautcod || "AUT-00.00", // Autor predeterminado
+            orgartcod: req.body.orgartcod || "ART-000",
+            orgusuid: req.body.orgusuid || "ART-000",
             ...req.body, // Otros datos enviados desde el frontend
         });
 
@@ -71,5 +73,26 @@ export const registerOrganization = async (req: Request, res: Response) => {
     } catch (error) {
         console.error("Error al registrar la organización:", error);
         res.status(500).json({ message: "Error al registrar la organización" });
+    }
+};
+
+// Obtener el último código de organización
+export const getLastOrganizationCode = async (req: Request, res: Response) => {
+    try {
+        const lastOrganization = await OrganizationRepository.find({
+            order: { orgcod: "DESC" },
+            take: 1,
+        });
+
+        const nextCode = lastOrganization.length
+            ? `ORG-${(parseInt(lastOrganization[0].orgcod.split("-")[1]) + 1)
+                  .toString()
+                  .padStart(3, "0")}`
+            : "ORG-001";
+
+        res.status(200).json({ nextCode });
+    } catch (error) {
+        console.error("Error al obtener el último código de organización:", error);
+        res.status(500).json({ message: "Error al obtener el último código de organización" });
     }
 };
