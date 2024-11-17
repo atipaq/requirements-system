@@ -6,9 +6,6 @@ import axios from "axios";
 const RegistroOrganizacion = () => {
     const navigate = useNavigate();
 
-    const [codigo, setCodigo] = useState("ORG-003");
-    const [version, setVersion] = useState("00.01");
-    const [fecha, setFecha] = useState(new Date().toLocaleDateString().split("/").reverse().join("-"));
     const [nombre, setNombre] = useState("");
     const [direccion, setDireccion] = useState("");
     const [telefonoOrganizacion, setTelefonoOrganizacion] = useState("");
@@ -17,8 +14,6 @@ const RegistroOrganizacion = () => {
     const [ruc, setRuc] = useState("");
     const [contacto, setContacto] = useState("");
     const [telefonoContacto, setTelefonoContacto] = useState("");
-    const [tipo, setTipo] = useState("Contratante");
-    const [autor, setAutor] = useState("AUT-00.00");
     const [estado, setEstado] = useState("");
     const [comentario, setComentario] = useState("");
     const [error, setError] = useState(null);
@@ -32,9 +27,6 @@ const RegistroOrganizacion = () => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:5000/api/organizations", {
-                orgcod: codigo,
-                orgver: version,
-                orgfecmod: fecha,
                 orgnom: nombre,
                 orgdir: direccion,
                 orgtel: telefonoOrganizacion,
@@ -43,12 +35,8 @@ const RegistroOrganizacion = () => {
                 orgruc: ruc,
                 orgcontact: contacto,
                 orgtelcon: telefonoContacto,
-                orgtiporgcod: tipo,
-                orgautcod: autor,
                 orgest: estado,
                 orgcom: comentario,
-                orgartcod: "ART-001", // Valor predeterminado si aplica
-                orgusuid: 1 // Valor de usuario, modificar según el sistema de autenticación
             });
             if (response.status === 201) {
                 alert("Organización registrada correctamente");

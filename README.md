@@ -52,9 +52,9 @@ Backend .env:
 Crea un archivo .env en la carpeta backend con el siguiente contenido:
 
 ```
-PORT=3001
+PORT=5000
 JWT_SECRET=my_super_secret_key
-REACT_APP_BACKEND_URL=http://localhost:3001
+REACT_APP_BACKEND_URL=http://localhost:5000
 NODE_ENV=development
 ```
 
@@ -62,7 +62,7 @@ Frontend .env:
 Crea un archivo .env en la carpeta frontend con el siguiente contenido:
 
 ```
-REACT_APP_BACKEND_URL=http://localhost:3001
+REACT_APP_BACKEND_URL=http://localhost:5000
 ```
 
 ### Estructura del Proyecto

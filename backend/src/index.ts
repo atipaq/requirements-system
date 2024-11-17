@@ -2,8 +2,9 @@
 import app from './app';
 import { AppDataSource } from './config/data-source';
 import { createDefaultUser } from './utils/defaultUser';
+import { createDefaultOrganization } from "./utils/defaultOrganization";
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 
 // Inicializar la base de datos y arrancar el servidor
 AppDataSource.initialize()
@@ -12,6 +13,9 @@ AppDataSource.initialize()
 
     // Crear el usuario "admin" predeterminado si no existe
     await createDefaultUser();
+
+    // Crear organización principal predeterminada
+    await createDefaultOrganization();
 
     // Iniciar servidor
     app.listen(PORT, () => {

@@ -42,17 +42,19 @@ const MenuOrganizaciones = () => {
                 setError(err.response ? err.response.data.error : 'Error al obtener la organización principal');
             }
         };
+        fetchMainOrganization();
+
         //Obtener o listar todas las organizaciones
         const fetchOrganizations = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/organizations');
-                setOrganizations(response.data);// Establecer los datos de las organizaciones en el estado
+                // Excluir la organización principal
+                setOrganizations(response.data.filter(org => org.orgcod !== "ORG-001")); // Establecer los datos de las organizaciones en el estado
             } catch (err) {
                 setError(err.response ? err.response.data.error : 'Error al obtener las organizaciones');
             }
         };
 
-        fetchMainOrganization();
         fetchOrganizations();
     }, []);
 
