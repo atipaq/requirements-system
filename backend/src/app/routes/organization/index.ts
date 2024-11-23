@@ -1,4 +1,4 @@
-// src/app/routes/organization/index.ts
+// src/app/routes/Author/index.ts
 import { Router } from "express";
 import { getMainOrganization, getOrganizations, searchOrganizationsHandler } from "../../controllers/organizationController";
 import { registerOrganization } from "../../controllers/organizationController";
