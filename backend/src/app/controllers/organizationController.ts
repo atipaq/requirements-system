@@ -49,8 +49,8 @@ export const registerOrganization = async (req: Request, res: Response) => {
 
         const nextCode = lastOrganization.length
             ? `ORG-${(parseInt(lastOrganization[0].orgcod.split("-")[1]) + 1)
-                  .toString()
-                  .padStart(3, "0")}`
+                .toString()
+                .padStart(3, "0")}`
             : "ORG-001";
 
         // Crear un nuevo registro con valores automáticos y datos recibidos
@@ -86,8 +86,8 @@ export const getLastOrganizationCode = async (req: Request, res: Response) => {
 
         const nextCode = lastOrganization.length
             ? `ORG-${(parseInt(lastOrganization[0].orgcod.split("-")[1]) + 1)
-                  .toString()
-                  .padStart(3, "0")}`
+                .toString()
+                .padStart(3, "0")}`
             : "ORG-001";
 
         res.status(200).json({ nextCode });
