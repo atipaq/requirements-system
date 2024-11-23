@@ -8,6 +8,8 @@ import RegistroOrganizacion from './view/RegistroOrganizacion.js';
 import RegistroProyecto from './view/RegistroProyecto.js';
 import MenuProyecto from './view/MenuProyecto.js';
 import PrivateRoute from './PrivateRoute';
+import Autores from './view/Autores.js';
+import NuevoAutor from './view/NuevoAutor.js';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/listarproyectos" element={<ListaProyectos />} />
           <Route path="/registroProyecto" element={<RegistroProyecto />} />
           <Route path="/menuProyecto" element={<MenuProyecto />} />
+          <Route path="/autores" element={<Autores />} />
+          <Route path="/nuevoAutor" element={<NuevoAutor />} />
         </Routes>
       </div>
     </Router>
