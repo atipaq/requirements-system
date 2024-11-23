@@ -7,10 +7,9 @@ import '../styles/stylesAutores.css'
 const Autores = () => {
     const navigate = useNavigate();
 
-    // Organizacion 
+    // Author
     const [authors, setAuthors] = useState([]);
     const [error, setError] = useState(null);
-
     //Estado para los parámetros de búsqueda
     const [searchNombre, setSearchNombre] = useState();
 
@@ -52,10 +51,15 @@ const Autores = () => {
             try {
                 await axios.delete(`http://localhost:5000/api/authors/${autCod}`);
                 setAuthors(authors.filter((aut) => aut.autCod = autCod));
+                const actualizarTabla = await axios.get('http://localhost:5000/api/authors');
+                setAuthors(actualizarTabla.data); // Establecer los datos de los autores en el estado
                 alert("Autor eliminado correctamente");
+                
+    
             } catch (err) {
                 setError(err.response ? err.response.data.error : "Error al eliminar el autor");
             }
+            
         }
     };
 
