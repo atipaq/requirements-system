@@ -18,7 +18,7 @@ export const createDefaultOrganization = async (): Promise<void> => {
                 orgfecmod: Date.now(), // Fecha de modificación actual
                 orgnom: "Empresa de Software ReqWizards", // Nombre
                 orgdir: "Calle Ficticia 123, Ciudad Arequipa", // Dirección
-                orgtel: 123456789, // Teléfono
+                orgtel: "123456789", // Teléfono
                 orgrepleg: "Juan Pérez", // Representante legal
                 orgtelrepleg: 987654321, // Teléfono del representante legal
                 orgruc: 20481234567, // RUC

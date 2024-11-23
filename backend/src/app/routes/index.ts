@@ -4,15 +4,16 @@ import { Router } from 'express';
 import authRouter from './auth';
 import authorRouters from './author';
 import organizationRoutes from './organization';
-import { authMiddleware } from '../middlewares/authMiddleware';
 import { getLastOrganizationCode } from "../controllers/organizationController";
 import { getLastAuthorCode } from '../controllers/authorController';
+import projectRoutes from './project';
 
 const router = Router();
 
 router.use('/auth', authRouter);
 router.use('/organizations', organizationRoutes);
 router.get("/organizations/last", getLastOrganizationCode);
+router.use('/projects', projectRoutes);
 
 //Authors
 router.use('/authors', authorRouters);
