@@ -1,5 +1,6 @@
-// src/data/entities/Organization.ts
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+// backend/src/data/entities/Organization.ts
+import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import { Project } from "./Project";
 
 @Entity("organizacion")
 export class Organization {
@@ -12,8 +13,8 @@ export class Organization {
     @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
     orgfeccrea!: Date;
 
-    @Column({ type: "real" })
-    orgfecmod!: number;
+    @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
+    orgfecmod!: Date;
 
     @Column({ type: "text" })
     orgnom!: string;
@@ -21,8 +22,8 @@ export class Organization {
     @Column({ type: "text" })
     orgdir!: string;
 
-    @Column({ type: "integer" })
-    orgtel!: number;
+    @Column({ type: "varchar" }) // Mejor que integer para un teléfono
+    orgtel!: string;
 
     @Column({ type: "text" })
     orgrepleg!: string;
@@ -56,4 +57,8 @@ export class Organization {
 
     @Column({ type: "integer" })
     orgusuid!: number;
+
+    // Relación con la entidad Project
+    @OneToMany(() => Project, (project) => project.organization)
+    projects!: Project[];
 }

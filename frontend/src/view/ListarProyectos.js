@@ -33,6 +33,13 @@ const ListaProyectos = () => {
     const [searchYear, setSearchYear] = useState('');
     const [searchMonth, setSearchMonth] = useState('');
 
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
+    const months = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
     
     const fetchProjects = useCallback(async () => {
         //Obtener o listar proyectos de una organizacion
@@ -49,6 +56,8 @@ const ListaProyectos = () => {
             fetchProjects();
         }
     }, [orgcod, fetchProjects]); 
+
+    
 
     // Función para buscar proyectos
     const handleSearch = async () => {
@@ -139,7 +148,11 @@ const ListaProyectos = () => {
                                     onChange={(e) => setSearchYear(e.target.value)}
                                 >
                                     <option value="">AÑO</option>
-                                    {/* Agrega aquí opciones de año */}
+                                    {years.map((year) => (
+                                        <option key={year} value={year}>
+                                            {year}
+                                        </option>
+                                    ))}
                                 </select>
                                 <select
                                     className="lista-month-input"
@@ -147,8 +160,13 @@ const ListaProyectos = () => {
                                     onChange={(e) => setSearchMonth(e.target.value)}
                                 >
                                     <option value="">MES</option>
-                                    {/* Agrega aquí opciones de mes */}
+                                    {months.map((month, index) => (
+                                        <option key={index} value={index + 1}>
+                                            {month}
+                                        </option>
+                                    ))}
                                 </select>
+
                             </div>
                         </div>
 
@@ -167,27 +185,31 @@ const ListaProyectos = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {projects.map((pro) => (
-                                        <tr key={pro.procod}>
-                                            <td>{pro.procod}</td>
-                                            <td>{pro.pronom}</td>
-                                            <td>{pro.profeccre}</td>
-                                            <td>{pro.profecmod}</td>
-                                            <td>{pro.proestcod}</td>
-                                            <td>
-                                                <button className="botton-crud" >
-                                                    <FaFolder style={{ color: "yellow", cursor: "pointer" }} />
-                                                </button>
-                                                <button className="botton-crud">
-                                                    <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
-                                                </button>
-                                                <button className="botton-crud" onClick={() => deleteProject(pro.procod)}>
-                                                    <FaTrash style={{ color: "red", cursor: "pointer" }} />
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
+    {projects.map((pro) => (
+        <tr key={pro.id}>
+            <td>{pro.code}</td>
+            <td>{pro.name}</td>
+            <td>{new Date(pro.creationDate).toLocaleDateString()}</td>
+            <td>{new Date(pro.modificationDate).toLocaleDateString()}</td>
+            <td>{pro.status}</td>
+            <td>
+                <button className="botton-crud">
+                    <FaFolder style={{ color: "yellow", cursor: "pointer" }} />
+                </button>
+                <button className="botton-crud">
+                    <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
+                </button>
+                <button
+                    className="botton-crud"
+                    onClick={() => deleteProject(pro.id)}
+                >
+                    <FaTrash style={{ color: "red", cursor: "pointer" }} />
+                </button>
+            </td>
+        </tr>
+    ))}
+</tbody>
+
                             </table>
                         )}
 
@@ -195,7 +217,26 @@ const ListaProyectos = () => {
                             <button onClick={irAMenuOrganizaciones} className="ro-button" size="50">Atras</button>
                         </div>
 
-                        <h4 className="lista-h4">Total de registros {projects.length}</h4>
+                        <h4 className="lista-h4">
+                            {
+                                projects.length === 0 ? (
+                                <p>No hay proyectos registrados para esta organización.</p>
+                                ) : (
+                                <table className="lista-centertabla">
+                                    <thead>
+                                        {/* Encabezados */}
+                                    </thead>
+                                    <tbody>
+                                        {projects.map((pro) => (
+                                            <tr key={pro.procod}>
+                                                {/* Celdas */}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                )
+                            }
+                        </h4>
                         <div className="lista-export-buttons">
                             <button className="lista-export-button">Excel</button>
                             <button className="lista-export-button">PDF</button>
