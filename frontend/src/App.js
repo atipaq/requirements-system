@@ -10,6 +10,7 @@ import MenuProyecto from './view/MenuProyecto.js';
 import PrivateRoute from './PrivateRoute';
 import Autores from './view/Autores.js';
 import NuevoAutor from './view/NuevoAutor.js';
+import ActaAceptacion from './view/ActaAceptacion.js';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/menuProyecto" element={<MenuProyecto />} />
           <Route path="/autores" element={<Autores />} />
           <Route path="/nuevoAutor" element={<NuevoAutor />} />
+          <Route path="/actaAceptacion" element={<ActaAceptacion />} />
         </Routes>
       </div>
     </Router>

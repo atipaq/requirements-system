@@ -1,6 +1,7 @@
 // backend/src/data/entities/Project.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, BeforeInsert } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn, BeforeInsert } from "typeorm";
 import { Organization } from "./Organization";
+import { ActaAceptacion } from "./ActaAceptacion";
 
 @Entity()
 export class Project {
@@ -27,6 +28,9 @@ export class Project {
 
     @ManyToOne(() => Organization, (organization) => organization.projects)
     organization!: Organization;
+
+    @OneToMany(() => ActaAceptacion, (acta) => acta.project, { cascade: true })
+    actas!: ActaAceptacion[];
     
     // Generar automáticamente el código antes de insertar el proyecto
     @BeforeInsert()

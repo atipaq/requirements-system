@@ -7,6 +7,7 @@ import organizationRoutes from './organization';
 import { getLastOrganizationCode } from "../controllers/organizationController";
 import { getLastAuthorCode } from '../controllers/authorController';
 import projectRoutes from './project';
+import actaRouter from './actaaceptacion';
 
 const router = Router();
 
@@ -18,5 +19,8 @@ router.use('/projects', projectRoutes);
 //Authors
 router.use('/authors', authorRouters);
 router.get("/authors/last", getLastAuthorCode );
+
+// Actas
+router.use('/actas', actaRouter);
 
 export default router;
