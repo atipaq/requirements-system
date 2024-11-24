@@ -1,3 +1,4 @@
+
 // src/data/repositories/authorRepository.ts
 import { AppDataSource } from "../../config/data-source";
 import { Author} from "../entities/Author";
@@ -27,8 +28,18 @@ export const searchAuthor = async (autCod: string): Promise<Author | null> => {
         where: { autCod: autCod }
     });
 };
-
-export const deleteAuthors  = async (): Promise<Author| null> => {
+/**
+ *
+ *
+ * @return {*}  {(Promise<Author| null>)}
+ */
+/**
+ * The function `deleteAuthors` asynchronously finds and returns an author based on their ID in
+ * uppercase.
+ * @returns The `deleteAuthors` function is returning a Promise that resolves to either an `Author`
+ * object or `null`.
+ */
+const deleteAuthors  = async (): Promise<Author| null> => {
     return await AuthorRepository.findOne({
         where: { autCod: "id.toUpperCase()" }, // 
     });

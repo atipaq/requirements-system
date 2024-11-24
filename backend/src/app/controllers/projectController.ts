@@ -10,10 +10,10 @@ export const createProject = async (req: Request, res: Response) => {
 
         const { name, status, comments = "", organizationId } = req.body;
 
-        const validStatues = ["Sin comenzar", "En progreso", "Concluido"];
+        /*const validStatues = ["Sin comenzar", "En progreso", "Concluido"];
         if(!validStatues.includes(status)){
             return res.status(400).json({ error: "Invalid status" });
-        }   
+        } */  
 
         // Buscar la organización relacionada
         const organizationRepository = AppDataSource.getRepository(Organization);
