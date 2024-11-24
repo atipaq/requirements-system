@@ -19,7 +19,7 @@ export class Project {
     @UpdateDateColumn({ type: "datetime" }) // Automático en cada actualización
     modificationDate!: Date;
 
-    @Column({nullable: true})
+    @Column()
     status!: string;
 
     @Column({ nullable: true })
