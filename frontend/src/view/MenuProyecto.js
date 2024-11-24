@@ -1,12 +1,17 @@
-import React from "react"
+import React, {useState} from "react"
 import { useNavigate } from "react-router-dom";
-import { FaEye} from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import '../styles/stylesMenuProyecto.css'
+import axios from "axios";
 
 
 
 const MenuProyecto = () => {
     const navigate = useNavigate();
+
+    const [codigoAutor, setCodigoAutor] = useState("");
+    const [resultados, setResultados] = useState([]);
+    const [mensaje, setMensaje] = useState("");
 
     const irALogin = () => {
         navigate("/");
@@ -25,6 +30,27 @@ const MenuProyecto = () => {
     };
     const irAPlantillas = () => {
         navigate("/plantillas");
+    };
+
+    const manejarBusqueda = (e) => {
+        setCodigoAutor(e.target.value);
+    };
+    const buscarAutor = async () => {
+        try {
+            const response = await axios.get(`/api/authors/searchCode`, {
+                params: { codAut: codigoAutor}
+            });
+            if(response.data.length === 0){
+                setMensaje("No se encontraron resultados");
+            }else {
+                setResultados(response.data);
+                setMensaje("");
+            }
+        } catch (error) {
+            console.log("Error al buscar:", error);
+            setMensaje("Error al realizar la búsqueda. intenta de nuevo");
+            setResultados([]);
+        }
     };
 
     return (
@@ -63,7 +89,7 @@ const MenuProyecto = () => {
                             <button onClick={irARoles} className="roles-button">ROLES</button>
                             <button onClick={irAPlantillas} className="plantillas-button">PLANTILLAS</button>
                         </div>
-                        
+
                     </section>
                     <section className="avance-section">
                         <h3>Avance del Proyecto</h3>
@@ -76,14 +102,16 @@ const MenuProyecto = () => {
 
                         <div class="boton-container">
                             <div class="sectionTextBuscar">
-                                <input class="codigoBuscar" type="text" placeholder="Código de autor" />
+                                <input class="codigoBuscar" type="text" placeholder="Código de autor"
+                                    value={codigoAutor}
+                                    onChange={manejarBusqueda} />
                                 <input class="plantillaBuscar" type="text" placeholder="Plantilla" />
                                 <input class="estadoBuscar" type="text" placeholder="Estado" />
                                 <input class="fechaBuscar" type="text" placeholder="Fecha" />
-                                <button className="search-button">Buscar</button>
+                                <button className="search-button" onClick={buscarAutor}>Buscar</button>
                             </div>
                         </div>
-
+                        {mensaje && <div className="mensaje">{mensaje}</div>}  {/* Mostrar mensaje si hay error o no resultados */}
                         <div className="menu-tabla-center">
                             <table className="menu-centertabla">
                                 <thead>
@@ -96,24 +124,23 @@ const MenuProyecto = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>AUT-0006</td>
-                                        <td>Ilacion</td>
-                                        <td>23/10/2024</td>
-                                        <td>00.01</td>
-                                        <td>
-                                        <button className="button-ver"><FaEye style={{ color: "brown", cursor: "pointer" }} /></button>
-                                        </td>
+                                    {resultados.length > 0 ? (
+                                        resultados.map((autor) => (
+                                            <tr key={autor.autCod}>
+                                                <td>{autor.autCod}</td>
+                                                <td>Ilacion</td>
+                                                <td>23/10/2024</td>
+                                                <td>00.01</td>
+                                                <td>
+                                                    <button className="button-ver"><FaEye style={{ color: "brown", cursor: "pointer" }} /></button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                        <td colSpan="5">No se encontraron autores.</td> {/* Si no hay resultados, se muestra este mensaje */}
                                     </tr>
-                                    <tr>
-                                        <td>AUT-0007</td>
-                                        <td>Educcion</td>
-                                        <td>10/05/2024</td>
-                                        <td>00.02</td>
-                                        <td>
-                                            <button className="button-ver"><FaEye style={{ color: "brown", cursor: "pointer" }} /></button>
-                                        </td>
-                                    </tr>
+                                    )}
                                 </tbody>
                             </table>
 

@@ -1,7 +1,8 @@
 // src/app/controllers/authorController.ts
 import { Request, Response } from "express";
-import { findAllAuthors,searchAuthors, AuthorRepository
+import { findAllAuthors,searchAuthors, AuthorRepository, searchAuthor
 } from "../../data/repositories/authorRepository";
+import { error } from "console";
 
 //############ Obtener la Lista de Autores #########
 export const getAuthors = async (req: Request, res: Response) => {
@@ -25,6 +26,28 @@ export const searchAuthorsHandler = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Error al buscar los autores" });
     }
 };
+
+// ###########   search authon py AutCod ##########
+export const searchAuthorByCode = async (req: Request, res: Response) => {
+    try {
+        const { autCod } = req.query;
+        if (!autCod) {
+            return res.status(400).json({ error: "El código de autor es requerido" });
+        }
+
+        const author = await searchAuthor(String(autCod));
+
+        if (!author) {
+            return res.status(404).json({ error: "Autor no encontrado" });
+        }
+
+        res.json(author);
+    } catch (error) {
+        console.error("Error al buscar al autor por código:", error);
+        res.status(500).json({ error: "Error al buscar al autor por código" });
+    }
+};
+
 
 //############ Registrar autor ###########
 export const registerAuthor = async (req: Request, res: Response) => {

@@ -21,6 +21,12 @@ export const searchAuthors = async (filters: any): Promise<Author[]> => {
     } 
     return await queryBuilder.getMany();
 };
+/* search Author by code (autCod) */
+export const searchAuthor = async (autCod: string): Promise<Author | null> => {
+    return await AuthorRepository.findOne({
+        where: { autCod: autCod }
+    });
+};
 
 export const deleteAuthors  = async (): Promise<Author| null> => {
     return await AuthorRepository.findOne({
