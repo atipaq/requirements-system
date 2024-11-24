@@ -83,11 +83,27 @@ export const getLastAuthorCode = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error al obtener el último código del autor" });
     }
 };
+
+//visualizar Autor
+export const getAuthorById = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params; // Obtener el ID del autor desde los parámetros
+        const author = await AuthorRepository.findOne({ where: { autCod: id } });
+        if (!author) {
+            return res.status(404).json({ error: "Autor no encontrado" });
+        }
+        res.json(author);
+    } catch (error) {
+        console.error("Error al obtener al autor:", error);
+        res.status(500).json({ error: "Error al obtener al autor" });
+    }
+};
+
 //Eliminar Autor
 export const deleteAuthor = async (req: Request, res: Response) => {
     try {
         const { id } = req.params; // ID del autor a eliminar
-        console.error("El ID es :", id);
+        //console.error("El ID es :", id);
         const aut = await AuthorRepository.findOne({ where: { autCod: id } });
         if (!aut) {
             return res.status(404).json({ error: "Autor no encontrado" });
@@ -95,7 +111,7 @@ export const deleteAuthor = async (req: Request, res: Response) => {
 
         // Eliminar directamente usando delete
         await AuthorRepository.delete(id);
-        res.json({ message: "Autor eliminado correctamente" });
+        //res.json({ message: "Autor eliminado correctamente" });
     } catch (error) {
         console.error("Error al eliminar al autor:", error);
         res.status(500).json({ error: "Error al eliminar al autor" });
