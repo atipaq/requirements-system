@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { findAllAuthors,searchAuthors, AuthorRepository, searchAuthor
 } from "../../data/repositories/authorRepository";
 import { error } from "console";
+import ExcelJS from "exceljs";
+import PDFDocument from "pdfkit";
 
 //############ Obtener la Lista de Autores #########
 export const getAuthors = async (req: Request, res: Response) => {
@@ -122,5 +124,114 @@ export const deleteAuthor = async (req: Request, res: Response) => {
     } catch (error) {
         console.error("Error al eliminar al autor:", error);
         res.status(500).json({ error: "Error al eliminar al autor" });
+    }
+};
+// Exportar a Excel
+export const exportAuthorsToExcel = async (req: Request, res: Response) => {
+    try{
+        const authors = await findAllAuthors();
+
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet("Authors");
+
+        worksheet.columns = [
+            {header: 'Codigo', key: 'autCod', width: 15},
+            {header: 'Nombre', key: 'autNom', width: 30},
+            {header: 'Fecha', key: 'autFecMod', width: 20},
+            {header: 'Version', key: 'autVer', width: 10},
+            {header: 'Rol', key: 'autRol', width: 15},
+        ];
+        //Agregar los datos de los autores
+        authors.forEach(author => {
+            worksheet.addRow({
+                autCod: author.autCod,
+                autNom: author.autNom,
+                autFecMod: author.autFecMod,
+                autVer: author.autVer,
+                autRol: author.autRol,
+            });
+        });
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=autores.xlsx');
+        await workbook.xlsx.write(res);
+        res.end();
+
+    }catch(error){
+        console.error("Error al exportar autores a Excel:", error);
+        res.status(500).json({ error: "Error al exportar autores a Excel" });
+    }   
+};
+// Exportar a PDF
+export const exportAuthorsToPdf = async (req: Request, res: Response) => {
+    try {
+        // Obtener los datos de los autores desde la base de datos
+        const authors = await findAllAuthors();
+
+        // Crear un documento PDF
+        const doc = new PDFDocument({
+            size: 'A4',   // Tamaño de página A4
+            margin: 30,   // Márgenes del documento
+        });
+
+        // Configurar el encabezado de la respuesta para el archivo PDF
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=authors.pdf');
+
+        // Iniciar el documento PDF
+        doc.pipe(res);
+
+        // Título del PDF
+        doc.fontSize(18).text('Lista de Autores', { align: 'center' });
+        doc.moveDown();
+
+        // Crear la tabla con los datos de los autores
+        const tableTop = doc.y;
+        const table = {
+            headers: ['Código', 'Nombre', 'Fecha Modificación', 'Versión', 'Rol'],
+            rows: authors.map(aut => [
+                aut.autCod,
+                aut.autNom,
+                aut.autFecMod.toISOString().split('T')[0],  // Formato YYYY-MM-DD
+                aut.autVer,
+                aut.autRol
+            ])
+        };
+
+        const columnWidths = [80, 150, 100, 60, 80];
+        const rowHeight = 20;
+        const startY = tableTop;
+
+        // Función para dibujar la tabla
+        const drawTable = () => {
+            let y = startY;
+
+            // Dibuja los encabezados
+            doc.fontSize(10).font('Helvetica-Bold');
+            table.headers.forEach((header, index) => {
+                const x = columnWidths.slice(0, index).reduce((a, b) => a + b, 0) + 30;
+                doc.text(header, x, y, { width: columnWidths[index], align: 'center' });
+            });
+
+            y += rowHeight;
+
+            // Dibuja las filas de datos
+            doc.font('Helvetica');
+            table.rows.forEach(row => {
+                row.forEach((cell, index) => {
+                    const x = columnWidths.slice(0, index).reduce((a, b) => a + b, 0) + 30;
+                    doc.text(String(cell), x, y, { width: columnWidths[index], align: 'center' });
+                });
+                y += rowHeight;
+            });
+        };
+
+        // Dibujar la tabla en el PDF
+        drawTable();
+
+        // Finalizar el PDF
+        doc.end();
+    } catch (error) {
+        console.error('Error al generar el PDF:', error);
+        res.status(500).json({ error: 'Error al generar el PDF' });
     }
 };

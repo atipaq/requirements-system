@@ -124,7 +124,7 @@ const MenuProyecto = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {resultados.length > 0 ? (
+                                    {resultados.length > 0 ?(
                                         resultados.map((autor) => (
                                             <tr key={autor.autCod}>
                                                 <td>{autor.autCod}</td>
@@ -138,8 +138,14 @@ const MenuProyecto = () => {
                                         ))
                                     ) : (
                                         <tr>
-                                        <td colSpan="5">No se encontraron autores.</td> {/* Si no hay resultados, se muestra este mensaje */}
-                                    </tr>
+                                            <td>AUT-0007</td>
+                                            <td>Educcion</td>
+                                            <td>10/05/2024</td>
+                                            <td>00.02</td>
+                                            <td>
+                                                <button className="button-ver"><FaEye style={{ color: "brown", cursor: "pointer" }} /></button>
+                                            </td>
+                                        </tr>
                                     )}
                                 </tbody>
                             </table>
