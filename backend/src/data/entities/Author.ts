@@ -1,6 +1,6 @@
 // src/data/entities/Autor.ts
 import { Entity, PrimaryColumn, Column,OneToMany, ManyToOne, JoinColumn } from "typeorm";
-import { TemplatePermission } from "./TemplatePermission";
+//import { TemplatePermission } from "./TemplatePermission";
 
 @Entity()
 export class Author {
@@ -56,7 +56,7 @@ export class Author {
 
     /**Tercera parte de la seccion */
     //CodigoOrganizacion
-    @PrimaryColumn()
+    @Column()
     autCodOrg!: string;
 
     //Autor de Pantilla

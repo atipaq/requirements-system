@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaFolder, FaPencilAlt, FaTrash } from "react-icons/fa";
+import { FaEye, FaPencilAlt, FaTrash } from "react-icons/fa";
 import '../styles/stylesAutores.css'
 
 const Autores = () => {
     const navigate = useNavigate();
 
-    // Organizacion 
+    // Author
     const [authors, setAuthors] = useState([]);
     const [error, setError] = useState(null);
-
     //Estado para los parámetros de búsqueda
     const [searchNombre, setSearchNombre] = useState();
 
@@ -45,17 +44,32 @@ const Autores = () => {
         }
     };
 
+    //Funcion de visualizar Autor
+    const handleView = async (autCod) => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/authors/${autCod}`);
+            alert(`Detalles del autor: \nNombre: ${response.data.autNom}\nRol: ${response.data.autRol}`);
+        } catch (err) {
+            setError(err.response ? err.response.data.error : "Error al obtener el autor");
+        }
+    };
+
     //Funcion de Eliminar Autor
     const handleDelete = async (autCod) => {
         if (window.confirm("¿Estás seguro de que deseas eliminar este autor?")) {
-            console.log(`http://localhost:5000/api/authors/${autCod}`);
+            //console.log(`http://localhost:5000/api/authors/${autCod}`);
             try {
                 await axios.delete(`http://localhost:5000/api/authors/${autCod}`);
                 setAuthors(authors.filter((aut) => aut.autCod = autCod));
-                alert("Autor eliminado correctamente");
+                const actualizarTabla = await axios.get('http://localhost:5000/api/authors');
+                setAuthors(actualizarTabla.data); // Establecer los datos de los autores en el estado
+                //alert("Autor eliminado correctamente");
+                
+    
             } catch (err) {
                 setError(err.response ? err.response.data.error : "Error al eliminar el autor");
             }
+            
         }
     };
 
@@ -171,8 +185,8 @@ const Autores = () => {
                                             <td>{aut.autVer}</td>
                                             <td>{aut.autRol}</td>
                                             <td>
-                                                <button className="botton-crud">
-                                                    <FaFolder style={{ color: "yellow", cursor: "pointer" }} />
+                                                <button className="botton-crud" onClick={() => handleView(aut.autCod)}>
+                                                    <FaEye style={{ color: "brown", cursor: "pointer" }} />
                                                 </button>
                                                 <button className="botton-crud">
                                                     <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
