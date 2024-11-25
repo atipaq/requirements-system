@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import '../styles/stylesMenuProyecto.css'
 import axios from "axios";
@@ -8,6 +8,7 @@ import axios from "axios";
 
 const MenuProyecto = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [codigoAutor, setCodigoAutor] = useState("");
     const [resultados, setResultados] = useState([]);
@@ -17,7 +18,7 @@ const MenuProyecto = () => {
         navigate("/");
     };
     const irAActaAceptacion = () => {
-        navigate("/actaAceptacion");
+        navigate(`/actaAceptacion?code=${codigo}`);
     };
     const irAAutores = () => {
         navigate("/autores");
@@ -31,6 +32,10 @@ const MenuProyecto = () => {
     const irAPlantillas = () => {
         navigate("/plantillas");
     };
+
+    // Obtener los parámetros de consulta
+    const queryParams = new URLSearchParams(location.search);
+    const codigo = queryParams.get('procod');
 
     const manejarBusqueda = (e) => {
         setCodigoAutor(e.target.value);

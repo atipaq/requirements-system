@@ -61,8 +61,11 @@ export const createActa = async (req: Request, res: Response): Promise<void> => 
             return res.status(400).json({ message: "No se ha cargado un archivo" });
         }
 
-        // Generar automáticamente un código para el proyecto
-        const actaceprocod = "PROJ-121"; // Ejemplo: código aleatorio de 4 dígitos
+        // Obtener el codigo del proyecto desde el front
+        const actaceprocod = req.body.actaceprocod;
+        if (!actaceprocod) {
+            return res.status(400).json({ message: "El código del proyecto es requerido" });
+        }
         const actacedir = `uploads/actas/${req.file.filename}`; // Ruta donde se guardó el archivo
 
         try {

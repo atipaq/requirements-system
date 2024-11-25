@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate, useLocation} from "react-router-dom";
 import axios from "axios";
 import '../styles/stylesActaAceptacion.css';
 
 const ActaAceptacion= () => {
 
+    const location = useLocation();
     const navigate = useNavigate();
+
     const [selectedFile, setSelectedFile] = useState(null);  // Para manejar el archivo cargado
     const [filePreview, setFilePreview] = useState(null);
 
@@ -18,6 +20,9 @@ const ActaAceptacion= () => {
     const irALogin = () => {
         navigate("/");
     };
+
+    const queryParams = new URLSearchParams(location.search);
+    const codigo = queryParams.get('code');
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -41,6 +46,7 @@ const ActaAceptacion= () => {
 
         const formData = new FormData();
         formData.append("file", selectedFile);
+        formData.append("actaceprocod", codigo);
 
         try {
             const response = await axios.post("http://localhost:5000/api/actas", formData, {
