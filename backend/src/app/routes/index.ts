@@ -1,4 +1,3 @@
-
 // backend/src/app/routes/index.ts
 // Archivo para consolidar todas las rutas
 import { Router } from 'express';
