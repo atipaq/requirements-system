@@ -13,6 +13,10 @@ const ListaProyectos = () => {
         navigate("/menuOrganizaciones");
     };
 
+    const irAMenuProyecto = () => {
+        navigate("/menuProyecto");
+    };
+
     const irARegistroProyecto = () => {
         navigate("/registroProyecto");
     };
@@ -186,7 +190,7 @@ const ListaProyectos = () => {
                                 </thead>
                                 <tbody>
     {projects.map((pro) => (
-        <tr key={pro.id}>
+        <tr key={pro.id} onClick={() => irAMenuProyecto(pro.id)}>
             <td>{pro.code}</td>
             <td>{pro.name}</td>
             <td>{new Date(pro.creationDate).toLocaleDateString()}</td>
