@@ -8,7 +8,7 @@ const RegistroProyecto = () => {
     const navigate = useNavigate();
 
     const irAMenuOrganizaciones = () => navigate("/menuOrganizaciones");
-    const irAListaProyecto = () => navigate("/listarproyectos");
+    const irAListaProyecto = () => navigate("/listaProyectos");
     const irALogin = () => navigate("/");
 
     // Estado para los datos del proyecto
@@ -59,7 +59,7 @@ const RegistroProyecto = () => {
                 organizationId: "ORG-002", // Cambia si la organización tiene otro ID
             });
             console.log("Proyecto registrado:", response.data);
-            navigate("/listarproyectos");
+            navigate("/listaProyectos");
         } catch (error) {
             console.error("Error registrando proyecto:", error);
         }
@@ -75,7 +75,7 @@ const RegistroProyecto = () => {
             <div className="rpsub-container">
                 <aside className="sidebar">
                     <div className="bar-rp">
-                        <p onClick={irAMenuOrganizaciones}>MENU PRINCIPAL</p>
+                        <p1 onClick={irAMenuOrganizaciones}>MENU PRINCIPAL</p1>
                     </div>
                     <div className="profile-section">
                         <div className="profile-icon">👤</div>

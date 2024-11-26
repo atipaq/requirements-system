@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaFolder, FaPencilAlt, FaTrash } from "react-icons/fa";
+import { FaFolder, FaTrash } from "react-icons/fa";
 import '../styles/stylesAutores.css'
+import '../styles/stylesEliminar.css'
 
 const Autores = () => {
     const navigate = useNavigate();
@@ -11,13 +12,11 @@ const Autores = () => {
     const [authors, setAuthors] = useState([]);
     const [error, setError] = useState(null);
 
-    //Estado para los parámetros de búsqueda
+    // Estado para los parámetros de búsqueda
     const [searchNombre, setSearchNombre] = useState();
 
-    //Obtencion de la lista de Autores
+    // Obtención de la lista de Autores
     useEffect(() => {
-        
-        //Obtener o listar todas los autores
         const fetchOrganizations = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/authors');
@@ -26,37 +25,49 @@ const Autores = () => {
                 setError(err.response ? err.response.data.error : 'Error al obtener los autores');
             }
         };
-
         fetchOrganizations();
     }, []);
 
-
-    //Función para buscar autores
+    // Función para buscar autores
     const handleSearch = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/authors/search', {
-                params: {
-                    nombre: searchNombre,
-                }
+                params: { nombre: searchNombre },
             });
-            setAuthors(response.data);// actualizar los datos de busqueda 
+            setAuthors(response.data); // actualizar los datos de búsqueda 
         } catch (err) {
             setError(err.response ? err.response.data.error : 'Error al buscar autores');
         }
     };
 
-    //Funcion de Eliminar Autor
+    // Función de Eliminar Autor
     const handleDelete = async (autCod) => {
-        if (window.confirm("¿Estás seguro de que deseas eliminar este autor?")) {
-            console.log(`http://localhost:5000/api/authors/${autCod}`);
+        setAutorAEliminar(autCod);  // Establecer el autor a eliminar
+        abrirPopup(); // Abrir el popup
+    };
+
+    const [autorAEliminar, setAutorAEliminar] = useState(null); // Estado para el autor a eliminar
+    const [mostrarPopup, setMostrarPopup] = useState(false); // Estado para mostrar el popup
+
+    const abrirPopup = () => {
+        setMostrarPopup(true);
+    };
+
+    const cerrarPopup = () => {
+        setMostrarPopup(false);
+    };
+
+    const eliminarAutor = async () => {
+        if (autorAEliminar) {
             try {
-                await axios.delete(`http://localhost:5000/api/authors/${autCod}`);
-                setAuthors(authors.filter((aut) => aut.autCod = autCod));
+                await axios.delete(`http://localhost:5000/api/authors/${autorAEliminar}`);
+                setAuthors(authors.filter((aut) => aut.autCod !== autorAEliminar)); // Filtrar el autor eliminado
                 alert("Autor eliminado correctamente");
             } catch (err) {
                 setError(err.response ? err.response.data.error : "Error al eliminar el autor");
             }
         }
+        cerrarPopup(); // Cerrar el popup después de eliminar
     };
 
     // Función para exportar a Excel
@@ -95,9 +106,11 @@ const Autores = () => {
         }
     };
 
-    //Vavegancion de las Interfaces
     const irAMenuOrganizaciones = () => {
         navigate("/menuOrganizaciones");
+    };
+    const irAMenuProyecto = () => {
+        navigate("/menuProyecto");
     };
     const irANuevoAutor = () => {
         navigate("/nuevoAutor");
@@ -105,7 +118,6 @@ const Autores = () => {
     const irALogin = () => {
         navigate("/");
     };
-
 
     return (
         <div className="autor-container">
@@ -115,37 +127,35 @@ const Autores = () => {
             </header>
 
             <div className="autorsub-container">
-
                 <aside className="autor-sidebar">
-                    {/*<div className="nav-button">
-                            <button className="atras-button">Atras</button>
-                            <button className="adelante-button">Adelante</button>
-                        </div>*/}
                     <div className="bar-lista">
                         <p1 onClick={irAMenuOrganizaciones}>MENU PRINCIPAL</p1>
                     </div>
 
-                    <div className="autor-profile-section" >
+                    <div className="autor-profile-section">
                         <div className="autor-profile-icon">👤</div>
-                        <p2>Nombre Autor - Cod</p2>
-                        <button onClick={irALogin} className="autor-logout-button" >Cerrar Sesión</button>
+                        <p>Nombre Autor - Cod</p>
+                        <button onClick={irALogin} className="autor-logout-button">Cerrar Sesión</button>
                     </div>
                 </aside>
 
                 <main className="autor-content">
                     <h2>AUTORES</h2>
                     <section className="autor-organizations-section">
-                        {/* Busqueda  */}
+                        {/* Busqueda */}
                         <div className="autor-search-section-bar">
                             <button onClick={irANuevoAutor} className="autor-register-button">Nuevo Autor</button>
-                            <div className="autor-sectionTextBuscar ">
-                                <input className="autor-textBuscar" type="text" placeholder="Buscar" 
-                                value={searchNombre}
-                                onChange={(e) => setSearchNombre(e.target.value)}/>
+                            <div className="autor-sectionTextBuscar">
+                                <input
+                                    className="autor-textBuscar"
+                                    type="text"
+                                    placeholder="Buscar"
+                                    value={searchNombre}
+                                    onChange={(e) => setSearchNombre(e.target.value)}
+                                />
                                 <button className="autor-search-button" onClick={handleSearch}>Buscar</button>
                             </div>
                         </div>
-
 
                         {/* Listar Autores */}
                         {error ? (
@@ -156,15 +166,15 @@ const Autores = () => {
                                     <tr>
                                         <th>Código</th>
                                         <th>Nombre</th>
-                                        <th>Fecha </th>
-                                        <th>Version</th>
+                                        <th>Fecha</th>
+                                        <th>Versión</th>
                                         <th>Rol</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {authors.map((aut) => (
-                                        <tr >
+                                        <tr key={aut.autCod}>
                                             <td>{aut.autCod}</td>
                                             <td>{aut.autNom}</td>
                                             <td>{aut.autFecMod}</td>
@@ -172,12 +182,12 @@ const Autores = () => {
                                             <td>{aut.autRol}</td>
                                             <td>
                                                 <button className="botton-crud">
-                                                    <FaFolder style={{ color: "yellow", cursor: "pointer" }} />
+                                                    <FaFolder style={{ color: "orange", cursor: "pointer" }} />
                                                 </button>
-                                                <button className="botton-crud">
-                                                    <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
-                                                </button>
-                                                <button className="botton-crud" onClick={() => handleDelete(aut.autCod)}>
+                                                <button
+                                                    className="botton-crud"
+                                                    onClick={() => handleDelete(aut.autCod)}
+                                                >
                                                     <FaTrash style={{ color: "red", cursor: "pointer" }} />
                                                 </button>
                                             </td>
@@ -187,10 +197,25 @@ const Autores = () => {
                             </table>
                         )}
 
+                        {/* Popup de confirmación */}
+                        {mostrarPopup && (
+                            <div className="popup-overlay">
+                                <div className="popup-content">
+                                    <p>¿Está seguro de eliminar este autor?</p>
+                                    <button onClick={eliminarAutor} className="si-button">Sí</button>
+                                    <button onClick={cerrarPopup} className="no-button">No</button>
+                                </div>
+                            </div>
+                        )}
+
                         <h4 className="autor-h4">Total de registros {authors.length}</h4>
                         <div className="autor-export-buttons">
                             <button className="autor-export-button" onClick={exportToExcel}>Excel</button>
                             <button className="autor-export-button" onClick={exportToPDF}>PDF</button>
+                        </div>
+
+                        <div className="search-section-bar">
+                            <button onClick={irAMenuProyecto} className="atras-button">Regresar</button>
                         </div>
                     </section>
                 </main>
@@ -199,4 +224,4 @@ const Autores = () => {
     );
 };
 
-export default Autores
+export default Autores;

@@ -119,6 +119,11 @@ const ActaAceptacion= () => {
                             <button onClick={handleSaveActa} className="acta-button" size="50">Guardar Acta</button>
                         </div>
 
+                        <div className="search-section-bar">
+                            <button onClick={irAMenuProyecto} className="atras-button">Regresar</button>
+                        </div>
+
+
 
                     </section>
                 

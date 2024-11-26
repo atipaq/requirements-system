@@ -17,6 +17,9 @@ const MenuProyecto = () => {
     const irALogin = () => {
         navigate("/");
     };
+    const irAMenuOrganizaciones = () => {
+        navigate("/menuOrganizaciones");
+    };
     const irAActaAceptacion = () => {
         navigate(`/actaAceptacion?code=${codigo}`);
     };
@@ -73,7 +76,7 @@ const MenuProyecto = () => {
                             <button className="adelante-button">Adelante</button>
                         </div>*/}
                     <div className="bar-menu">
-                        <p1>MENU PRINCIPAL</p1>
+                    <p1 onClick={irAMenuOrganizaciones}>MENU PRINCIPAL</p1>
                     </div>
 
                     <div className="profile-section" >

@@ -14,9 +14,9 @@ const MenuOrganizaciones = () => {
     const irALogin = () => {
         navigate("/");
     };
-    const irAListarProyecto = (orgcod) => {
+    const irAListaProyecto = (orgcod) => {
         // Redirige a la página de lista de proyectos con el código de la organización usando parámetros de consulta
-        navigate(`/listarproyectos?orgcod=${orgcod}`);
+        navigate(`/listaProyectos?orgcod=${orgcod}`);
     };
     const irARegistroOrganizacion = () => {
         navigate("/registroOrganizaciones");
@@ -150,7 +150,7 @@ const MenuOrganizaciones = () => {
                                             <td>{mainOrganization.orgfeccrea}</td>
                                             <td>{mainOrganization.orgver}</td>
                                             <td>
-                                                <button className="botton-crud"><FaFolder style={{ color: "yellow", cursor: "pointer" }} /></button>
+                                                <button className="botton-crud"><FaFolder style={{ color: "orange", cursor: "pointer" }} /></button>
                                                 <button className="botton-crud"><FaPencilAlt style={{ color: "blue", cursor: "pointer" }} /></button>
                                             </td>
                                         </tr>
@@ -222,14 +222,14 @@ const MenuOrganizaciones = () => {
                                     </thead>
                                     <tbody>
                                         {organizations.map((org) => (
-                                            <tr key={org.orgcod} onClick={() => irAListarProyecto(org.orgcod)}>
+                                            <tr key={org.orgcod} onClick={() => irAListaProyecto(org.orgcod)}>
                                             <td>{org.orgcod}</td>
                                             <td>{org.orgnom}</td>
                                             <td>{org.orgfeccrea}</td>
                                             <td>{org.orgver}</td>
                                             <td>
                                                 <button className="botton-crud">
-                                                <FaFolder style={{ color: "yellow", cursor: "pointer" }} />
+                                                <FaFolder style={{ color: "orange", cursor: "pointer" }} />
                                                 </button>
                                                 <button className="botton-crud">
                                                 <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />

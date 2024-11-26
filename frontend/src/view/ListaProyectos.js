@@ -198,7 +198,7 @@ const ListaProyectos = () => {
             <td>{pro.status}</td>
             <td>
                 <button className="botton-crud">
-                    <FaFolder style={{ color: "yellow", cursor: "pointer" }} />
+                    <FaFolder style={{ color: "orange", cursor: "pointer" }} />
                 </button>
                 <button className="botton-crud">
                     <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
