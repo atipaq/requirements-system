@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaFolder, FaPencilAlt, FaTrash } from "react-icons/fa";
 import '../styles/stylesListaProyectos.css';
+import '../styles/styles.css';
 
 const ListaProyectos = () => {
     // Variables de enrutamiento
@@ -106,9 +107,12 @@ const ListaProyectos = () => {
 
     return (
         <div className="lista-container">
-            <header className="lista-header">
+            <header className="ro-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company /</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span>Mocar Company</span>
+                </div>
             </header>
 
             <div className="listasub-container">

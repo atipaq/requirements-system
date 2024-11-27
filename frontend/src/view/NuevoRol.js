@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/stylesNuevoRol.css';
+import '../styles/styles.css';
 
 const NuevoRol = () => {
 
@@ -9,11 +10,17 @@ const NuevoRol = () => {
     const irAMenuOrganizaciones = () => {
         navigate("/menuOrganizaciones");
     };
-    const irAListaRoles = () => {
+    const irARoles = () => {
         navigate("/Roles");
     };
     const irALogin = () => {
         navigate("/");
+    };
+    const irAMenuProyecto = () => {
+        navigate("/menuProyecto");
+    };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
     };
 
 
@@ -21,7 +28,13 @@ const NuevoRol = () => {
         <div className="rr-container">
             <header className="rr-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Sistema Inventario/ Rol / Nuevo Rol</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span onClick={irARoles}>Roles /</span>
+                    <span>Nuevo rol</span>
+                </div>
             </header>
 
             <div className="rrsub-container">
@@ -68,8 +81,8 @@ const NuevoRol = () => {
                         </div>
 
                         <div className="rr-buttons">
-                            <button onClick={irAListaRoles} className="rp-button" size="50">Cancelar</button>
-                            <button onClick={irAListaRoles} className="rp-button" size="50">Crear</button>
+                            <button onClick={irARoles} className="rp-button" size="50">Cancelar</button>
+                            <button onClick={irARoles} className="rp-button" size="50">Crear</button>
                         </div>
                     </section>
 

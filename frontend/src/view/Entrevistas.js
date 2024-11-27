@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaFolder, FaPencilAlt, FaTrash} from "react-icons/fa";
 import '../styles/stylesEntrevistas.css'
 import '../styles/stylesEliminar.css'
+import '../styles/styles.css';
 
 
 const Entrevistas = () => {
@@ -33,6 +34,9 @@ const Entrevistas = () => {
     const irAMenuProyecto = () => {
         navigate("/menuProyecto");
     };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
+    };
 
     const [mostrarPopup, setMostrarPopup] = useState(false);
   
@@ -58,7 +62,12 @@ const Entrevistas = () => {
         <div className="menu-container">
             <header className="menu-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Sistema inventario / Entrevistas</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span>Entrevistas</span>
+                </div>
             </header>
 
             <div className="menusub-container">

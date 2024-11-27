@@ -77,3 +77,7 @@ p {
   color: #a0005b;
   cursor: pointer;
 }
+.flex-container {
+  display: flex;
+  align-items: center;
+}

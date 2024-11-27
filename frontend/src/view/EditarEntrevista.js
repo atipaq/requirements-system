@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/stylesNuevaEntrevista.css';
+import '../styles/styles.css';
 
 const EditarEntrevista = () => {
 
@@ -15,6 +16,13 @@ const EditarEntrevista = () => {
     const irALogin = () => {
         navigate("/");
     };
+    const irAMenuProyecto = () => {
+        navigate("/menuProyecto");
+    };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
+    };
+    
  //valores iniciales o cargados
     const [fechaEntrevista, setFechaEntrevista] = useState("2023-10-23"); 
     const [nombreEntrevistado, setNombreEntrevistado] = useState("Ramon Perez"); 
@@ -45,7 +53,13 @@ const EditarEntrevista = () => {
         <div className="rp-container">
             <header className="rp-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Sistema inventario / Entrevistas / Editar Entrevista</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span onClick={irAEntrevistas}>Entrevistas /</span>
+                    <span>Editar entrevista</span>
+                </div>
             </header>
 
             <div className="rpsub-container">

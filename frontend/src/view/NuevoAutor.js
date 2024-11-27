@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/stylesNuevoAutor.css';
+import '../styles/styles.css';
 import axios from "axios";
 
 const NuevoAutor = () => {
@@ -108,12 +109,25 @@ const NuevoAutor = () => {
         navigate("/");
     };
 
+    const irAMenuProyecto = () => {
+        navigate("/menuProyecto");
+    };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
+    };
+
 
     return (
         <div className="ro-container">
             <header className="ro-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Sistema Inventario / Autores / Nuevo Autor /</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span onClick={irAAutores}>Autores /</span>
+                    <span>Nuevo autor</span>
+                </div>
             </header>
 
             <div className="rosub-container">

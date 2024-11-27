@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaFolder, FaTrash } from "react-icons/fa";
 import '../styles/stylesAutores.css'
 import '../styles/stylesEliminar.css'
+import '../styles/styles.css';
 
 const Autores = () => {
     const navigate = useNavigate();
@@ -118,12 +119,20 @@ const Autores = () => {
     const irALogin = () => {
         navigate("/");
     };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
+    };
 
     return (
         <div className="autor-container">
-            <header className="autor-header">
+            <header className="ro-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Autores /Sistema Inventario/ Autores</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span>Autores</span>
+                </div>
             </header>
 
             <div className="autorsub-container">

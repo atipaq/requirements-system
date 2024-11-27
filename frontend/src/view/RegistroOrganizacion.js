@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/stylesRegistroOrganizacion.css';
+import '../styles/styles.css';
 import axios from "axios";
 
 const RegistroOrganizacion = () => {
@@ -82,7 +83,10 @@ const RegistroOrganizacion = () => {
         <div className="ro-container">
             <header className="ro-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Registrar Empresa /</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span>Registro de organización</span>
+                </div>
             </header>
 
             <div className="rosub-container">

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../styles/stylesRegistroProyecto.css';
+import '../styles/styles.css';
 
 const RegistroProyecto = () => {
     const navigate = useNavigate();
@@ -69,7 +70,11 @@ const RegistroProyecto = () => {
         <div className="rp-container">
             <header className="rp-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Nuevo Proyecto /</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span>Nuevo Proyecto</span>
+                </div>
             </header>
 
             <div className="rpsub-container">

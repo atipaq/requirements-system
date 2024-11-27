@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import '../styles/stylesMenuProyecto.css'
+import '../styles/styles.css';
 import axios from "axios";
 
 
@@ -35,6 +36,9 @@ const MenuProyecto = () => {
     const irAPlantillas = () => {
         navigate("/plantillas");
     };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
+    };
 
     // Obtener los parámetros de consulta
     const queryParams = new URLSearchParams(location.search);
@@ -65,7 +69,11 @@ const MenuProyecto = () => {
         <div className="menu-container">
             <header className="menu-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Sistema Inventario</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span>Sistema Inventario</span>
+                </div>
             </header>
 
             <div className="menusub-container">

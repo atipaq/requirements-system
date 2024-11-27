@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation} from "react-router-dom";
 import axios from "axios";
 import '../styles/stylesActaAceptacion.css';
+import '../styles/styles.css';
 
 const ActaAceptacion= () => {
 
@@ -19,6 +20,9 @@ const ActaAceptacion= () => {
     };
     const irALogin = () => {
         navigate("/");
+    };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
     };
 
     const queryParams = new URLSearchParams(location.search);
@@ -70,7 +74,12 @@ const ActaAceptacion= () => {
         <div className="acta-container">
             <header className="acta-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Sistema Inventario/ Acta /</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span>Acta</span>
+                </div>
             </header>
 
             <div className="actasub-container">

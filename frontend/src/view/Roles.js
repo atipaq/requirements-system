@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FaFolder, FaPencilAlt, FaTrash } from "react-icons/fa";
 import '../styles/stylesRoles.css'
+import '../styles/styles.css';
 
 const Roles = () => {
     const navigate = useNavigate();
@@ -24,6 +25,9 @@ const Roles = () => {
     const irALogin = () => {
         navigate("/");
     };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
+    };
 
     const [mostrarPopup, setMostrarPopup] = useState(false);
   
@@ -42,9 +46,14 @@ const Roles = () => {
 
     return (
         <div className="rol-container">
-            <header className="rol-header">
+            <header className="ro-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company /Sistema Inventario/ Roles</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span>Roles</span>
+                </div>
             </header>
 
             <div className="rolsub-container">

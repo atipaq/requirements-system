@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/stylesNuevaEntrevista.css';
+import '../styles/styles.css';
 
 const NuevaEntrevista = () => {
 
@@ -15,13 +16,25 @@ const NuevaEntrevista = () => {
     const irALogin = () => {
         navigate("/");
     };
+    const irAMenuProyecto = () => {
+        navigate("/menuProyecto");
+    };
+    const irAListaProyecto = () => {
+        navigate("/listaProyectos");
+    };
 
 
     return (
         <div className="rp-container">
             <header className="rp-header">
                 <h1>ReqWizards App</h1>
-                <span>Menú Principal / Mocar Company / Sistema inventario / Entrevistas / Nueva Entrevista</span>
+                <div className="flex-container">
+                    <span onClick={irAMenuOrganizaciones}>Menú Principal /</span>
+                    <span onClick={irAListaProyecto}>Mocar Company /</span>
+                    <span onClick={irAMenuProyecto}>Sistema Inventario /</span>
+                    <span onClick={irAEntrevistas}>Entrevistas /</span>
+                    <span>Nueva entrevista</span>
+                </div>
             </header>
 
             <div className="rpsub-container">
