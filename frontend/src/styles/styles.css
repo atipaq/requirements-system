@@ -81,3 +81,31 @@ p {
   display: flex;
   align-items: center;
 }
+.message {
+  position: relative; /* Asegura que el tooltip esté relacionado con este contenedor */
+  display: inline-block; /* Ajusta al tamaño del texto o contenido específico */
+}
+
+.tooltip-text {
+  visibility: hidden; /* Inicialmente oculto */
+  opacity: 0; /* Totalmente transparente */
+  position: absolute;
+  background-color: #c589ac;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  top: 100%; /* Coloca el tooltip justo debajo del texto */
+  left: 50%; /* Centra el tooltip horizontalmente */
+  transform: translateX(-50%);
+  white-space: normal; /* Permite que el texto ocupe varias líneas si es necesario */
+  z-index: 10;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  max-width: 200px; /* Limita el ancho del tooltip */
+  word-wrap: break-word; /* Ajusta el texto a múltiples líneas si es necesario */
+}
+
+.message:hover .tooltip-text {
+  visibility: visible; /* Muestra el tooltip al pasar el ratón */
+  opacity: 1; /* Hace el tooltip visible */
+}

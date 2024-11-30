@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FaFolder, FaPencilAlt, FaTrash } from "react-icons/fa";
 import '../styles/stylesMenuOrganizaciones.css';
+import '../styles/styles.css';
 
 const MenuOrganizaciones = () => {
 

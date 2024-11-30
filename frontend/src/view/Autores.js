@@ -143,7 +143,7 @@ const Autores = () => {
 
                     <div className="autor-profile-section">
                         <div className="autor-profile-icon">👤</div>
-                        <p>Nombre Autor - Cod</p>
+                        <p2>Nombre Autor - Cod</p2>
                         <button onClick={irALogin} className="autor-logout-button">Cerrar Sesión</button>
                     </div>
                 </aside>

@@ -151,9 +151,12 @@ body {
 }
 
 .lista-textBuscar {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #4B125F;
     border-radius: 5px;
+    font-size: 0.8em;
+    height: 30px; /* Ajusta la altura para que sea consistente con los botones */
+    box-sizing: border-box; /* Asegura que padding y borde estén incluidos en el tamaño total */
 }
 
 .lista-register-button,.lista-search-button {

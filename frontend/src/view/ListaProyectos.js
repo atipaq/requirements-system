@@ -125,7 +125,7 @@ const ListaProyectos = () => {
 
                     <div className="lista-profile-section" >
                         <div className="lista-profile-icon">👤</div>
-                        <p>Nombre Autor - Cod</p>
+                        <p2>Nombre Autor - Cod</p2>
                         <button onClick={irALogin} className="lista-logout-button" >Cerrar Sesión</button>
                     </div>
                 </aside>
@@ -136,14 +136,18 @@ const ListaProyectos = () => {
 
                         <div className="lista-search-section-bar">
                             <button onClick={irARegistroProyecto} className="lista-register-button">Nuevo proyecto</button>
-                            <div className="lista-sectionTextBuscar ">
-                                <input
-                                    className="lista-textBuscar"
-                                    type="text"
-                                    placeholder="Buscar por nombre"
-                                    value={searchNombre}
-                                    onChange={(e) => setSearchNombre(e.target.value)}
-                                />
+                            <div className="lista-sectionTextBuscar">
+                                <span class="message">
+                                    <input
+                                            class="lista-textBuscar"
+                                            type="text"
+                                            placeholder="Buscar por nombre"
+                                            value={searchNombre}
+                                            onChange={(e) => setSearchNombre(e.target.value)}
+                                    />
+                                    <span class="tooltip-text">Ingresar nombre del proyecto que desea buscaaaaaaaaaaaaaaar</span>
+                                </span>
+
                                 <button className="lista-search-button" onClick={handleSearch}>Buscar</button>
                             </div>
                         </div>
