@@ -1,6 +1,6 @@
 // backend/src/app/routes/project/index.ts
 import { Router } from "express";
-import { createProject } from "../../controllers/projectController";
+import { createProject, deleteProject } from "../../controllers/projectController";
 import {getProjectsByOrganization} from "../../controllers/projectController"
 
 const router = Router();
@@ -16,5 +16,5 @@ router.get("/initial", (req, res) => {
     res.status(200).json(initialData);
 });
 
-
+router.delete("/:procod", deleteProject)
 export default router;

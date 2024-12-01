@@ -213,7 +213,7 @@ const ListaProyectos = () => {
                 </button>
                 <button
                     className="botton-crud"
-                    onClick={() => deleteProject(pro.id)}
+                    onClick={() => deleteProject(pro.code)}
                 >
                     <FaTrash style={{ color: "red", cursor: "pointer" }} />
                 </button>
