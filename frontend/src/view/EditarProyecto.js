@@ -1,37 +1,81 @@
 // frontend/src/view/EditarProyecto.js
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../styles/stylesRegistroProyecto.css';
 import '../styles/styles.css';
 
 const EditarProyecto = () => {
+    
     const navigate = useNavigate();
-
     const irAMenuOrganizaciones = () => navigate("/menuOrganizaciones");
     const irAListaProyecto = () => navigate("/listaProyectos");
     const irALogin = () => navigate("/");
 
-     //valores iniciales o cargados
-     const [codigoProyecto, setCodigoProyecto] = useState("PROY-001");
-     const [versionProyecto, setVersionProyecto] = useState("00.01");
-     const [nombreProyecto, setNombreProyecto] = useState("Mocar Company"); 
-     const [fechaCreacionProyecto, setFechaCreacionProyecto] = useState("23/10/2023");
-     const [fechaModificacionProyecto, setFechaModificacionProyecto] = useState("26/10/2023");
-     const [estadoProyecto, setEstadoProyecto] = useState("En curso");
-     const [comentariosProyecto, setComentariosProyecto] = useState(" El proyecto será basado en el sector salud");
- 
-     // Función para manejar cambios en el input
-     const handleChange = (event) => {
-        setCodigoProyecto(event.target.value);
-        setVersionProyecto(event.target.value);
-        setNombreProyecto(event.target.value);
-        setFechaCreacionProyecto(event.target.value);
-        setFechaModificacionProyecto(event.target.value);
-        setEstadoProyecto(event.target.value);
-        setComentariosProyecto(event.target.value);
-     };
+
+    const { id } = useParams(); // Obtener el ID del proyecto desde la URL
+    console.log("ID del proyecto:", id);
+    // Valores iniciales
+    const [codigoProyecto, setCodigoProyecto] = useState("");
+    const [versionProyecto, setVersionProyecto] = useState("0.01");
+    const [nombreProyecto, setNombreProyecto] = useState(""); 
+    const [fechaCreacionProyecto, setFechaCreacionProyecto] = useState("");
+    const [fechaModificacionProyecto, setFechaModificacionProyecto] = useState("");
+    const [estadoProyecto, setEstadoProyecto] = useState("");
+    const [comentariosProyecto, setComentariosProyecto] = useState("");
+
+    // Cargar los datos del proyecto al montar el componente
+    useEffect(() => {
+        if (id) {
+            axios.get(`http://localhost:5000/api/projects/${id}`)
+                .then((response) => {
+                    const { code, name, creationDate, modificationDate, status, comments } = response.data;
+                    setCodigoProyecto(code);
+                    setNombreProyecto(name);
+                    setFechaCreacionProyecto(creationDate);
+                    setFechaModificacionProyecto(modificationDate);
+                    setEstadoProyecto(status);
+                    setComentariosProyecto(comments);
+                })
+                .catch((error) => {
+                    console.error("Error al cargar el proyecto:", error);
+                    alert("Error al cargar el proyecto");
+                });
+        } else {
+            console.error("El ID del proyecto no es válido");
+            alert("ID del proyecto no válido");
+        }
+    }, [id]);
+
+    // Manejar la actualización del proyecto
+    const handleUpdate = () => {
+        if (!id) {
+            alert("El ID del proyecto es inválido.");
+            return;
+        }
     
+        const updatedProject = {
+            name: nombreProyecto,
+            status: estadoProyecto,
+            comments: comentariosProyecto,
+        };
+    
+        console.log("ID recibido:", id);
+    
+        axios.put(`http://localhost:5000/api/projects/${id}`, updatedProject)
+            .then(() => {
+                alert("Proyecto actualizado correctamente");
+                navigate("/listaProyectos");
+            })
+            .catch((error) => {
+                if (error.response?.status === 404) {
+                    alert("El proyecto no fue encontrado.");
+                } else {
+                    console.error("Error al actualizar el proyecto:", error);
+                    alert("Error al actualizar el proyecto");
+                }
+            });
+    };
     return (
         <div className="rp-container">
             <header className="rp-header">
@@ -97,7 +141,7 @@ const EditarProyecto = () => {
                                         type="text"
                                         name="name"
                                         value={nombreProyecto}  
-                                        onChange={handleChange}
+                                        onChange={(e) => setNombreProyecto(e.target.value)}
                                         placeholder=""
                                         size="125"
                                     />
@@ -153,15 +197,15 @@ const EditarProyecto = () => {
                                 className="input-fieldtext"
                                 name="comments"
                                 value={comentariosProyecto} 
-                                onChange={handleChange}
+                                onChange={(e) => setComentariosProyecto(e.target.value)}
                                 rows="3"
                                 placeholder=""
                             ></textarea>
                         </div>
                         <div className="rp-buttons">
-                            <button onClick={irAListaProyecto} className="rp-button" size="50">Cancelar</button>
-                            <button onClick={irAListaProyecto} className="rp-button" size="50">Registrar Proyecto</button>
-                        </div>
+                    <button onClick={() => navigate("/listaProyectos")} className="rp-button">Cancelar</button>
+                    <button onClick={handleUpdate} className="rp-button">Registrar Proyecto</button>
+                </div>
                     </section>
                 </main>
             </div>

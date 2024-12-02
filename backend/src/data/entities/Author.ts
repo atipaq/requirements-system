@@ -56,7 +56,7 @@ export class Author {
 
     /**Tercera parte de la seccion */
     //CodigoOrganizacion
-    @PrimaryColumn()
+    @Column()
     autCodOrg!: string;
 
     //Autor de Pantilla

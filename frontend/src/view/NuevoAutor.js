@@ -275,6 +275,7 @@ const NuevoAutor = () => {
                     </section>
 
                     <section className="ro-organizations-section">
+                        {/*
                         <h3>Permiso para ver y editar plantillas</h3>
 
                         <div className="ro-cod-vers">
@@ -378,7 +379,7 @@ const NuevoAutor = () => {
                                 <input disabled type="text" className="inputBloq-field-select" value="Plantilla de Pruebas de Software" readOnly size="60" />
                             </div>
                         </div>
-
+                        */}
                         <div className="ro-buttons">
                             <button onClick={irAAutores} className="ro-button" size="60">Cancelar</button>
                             <button onClick={handleRegister} className="ro-button" size="60">Crear Autor</button>

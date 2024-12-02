@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { projectRepository } from "../../data/repositories/projectRepository";
 import { AppDataSource } from "../../config/data-source";
 import { Organization } from "../../data/entities/Organization";
+import { Project } from "../../data/entities/Project";
 
 export const createProject = async (req: Request, res: Response) => {
     try {
@@ -94,3 +95,57 @@ export const deleteProject = async (req: Request, res: Response) => {
 };
 
 
+// Controlador para actualizar un proyecto
+export const updateProject = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { name, status, comments } = req.body;
+
+    console.log("ID recibido para actualizar:", id);
+    console.log("Datos recibidos para actualizar:", req.body);
+
+    if (!id || isNaN(parseInt(id))) {
+        return res.status(400).json({ message: "ID inválido" });
+    }
+
+    try {
+        const projectRepository = AppDataSource.getRepository(Project);
+        const project = await projectRepository.findOneBy({ id: parseInt(id) });
+
+        if (!project) {
+            console.error(`Proyecto con ID ${id} no encontrado.`);
+            return res.status(404).json({ message: `Proyecto con ID ${id} no encontrado` });
+        }
+
+        // Actualizar campos
+        project.name = name || project.name;
+        project.status = status || project.status;
+        project.comments = comments || project.comments;
+        project.modificationDate = new Date();
+
+        // Guardar cambios
+        await projectRepository.save(project);
+
+        res.status(200).json({ message: "Proyecto actualizado correctamente", project });
+    } catch (error) {
+        console.error("Error al actualizar el proyecto:", error);
+        res.status(500).json({ message: "Error interno del servidor" });
+    }
+};
+
+export const getProjectById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+        const projectRepository = AppDataSource.getRepository(Project);
+        const project = await projectRepository.findOneBy({ id: parseInt(id) });
+
+        if (!project) {
+            return res.status(404).json({ message: "Proyecto no encontrado" });
+        }
+
+        res.status(200).json(project);
+    } catch (error) {
+        console.error("Error al obtener el proyecto:", error);
+        res.status(500).json({ message: "Error interno del servidor" });
+    }
+};
