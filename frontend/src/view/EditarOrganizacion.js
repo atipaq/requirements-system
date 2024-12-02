@@ -201,12 +201,11 @@ const EditarOrganizacion = () => {
                                 <input className="inputnombre-field" type="text" value={estado} onChange={(e) => setEstado(e.target.value)} size="30" />
                             </div>
                         </div>
-
-                        <div className="ro-cod-vers">
-                            <div className="ro-fiel-cod">
-                                <h4>Comentarios</h4>
-                                <textarea className="inputnombre-field" value={comentario} onChange={(e) => setComentario(e.target.value)} rows="3" cols="30"></textarea>
-                            </div>
+                    </section>
+                    <section className="ro-organizations-section">
+                        <h3>Comentario</h3>
+                        <div className="input-text">
+                            <textarea className="input-fieldtext" rows="3" value={comentario} onChange={(e) => setComentario(e.target.value)} ></textarea>
                         </div>
 
                         {error && <div className="error-message">{error}</div>}
@@ -215,6 +214,7 @@ const EditarOrganizacion = () => {
                             <button className="ro-button" onClick={handleEdit}>
                                 {orgcod ? "Guardar Cambios" : "Registrar Organización"}
                             </button>
+                            <button onClick={irAMenuOrganizaciones} className="ro-button">Cancelar</button>
                         </div>
                     </section>
                 </main>

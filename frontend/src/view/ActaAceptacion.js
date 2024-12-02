@@ -118,7 +118,7 @@ const ActaAceptacion= () => {
                         {filePreview && (
                         <div className="file-preview">
                             {selectedFile.type.startsWith("image/") ? (
-                                <img src={filePreview} alt="Preview" className="file-preview-img" />
+                                <img src={filePreview} alt="Vista previa" className="file-preview-img" />
                             ) : selectedFile.type === "application/pdf" ? (
                                 <embed src={filePreview} type="application/pdf" className="file-preview-pdf" />
                             ) : (
@@ -138,8 +138,6 @@ const ActaAceptacion= () => {
 
 
                     </section>
-                
-
                 </main>
             </div>
         </div>

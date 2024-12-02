@@ -406,7 +406,7 @@ const EditarAutor = () => {
 
                         <div className="ro-buttons">
                             <button onClick={irAAutores} className="ro-button" size="60">Cancelar</button>
-                            <button onClick={irAAutores} className="ro-button" size="60">Crear Autor</button>
+                            <button onClick={irAAutores} className="ro-button" size="60">Guardar cambios</button>
                         </div>
                     </section>
                 </main>
