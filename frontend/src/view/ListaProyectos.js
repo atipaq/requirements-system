@@ -18,6 +18,10 @@ const ListaProyectos = () => {
         navigate(`/menuProyecto?procod=${code}`);
     };
 
+    const irAEditarProyecto = () => {
+        navigate("/editarProyecto");
+    };
+
     const irARegistroProyecto = () => {
         navigate("/registroProyecto");
     };
@@ -145,7 +149,7 @@ const ListaProyectos = () => {
                                             value={searchNombre}
                                             onChange={(e) => setSearchNombre(e.target.value)}
                                     />
-                                    <span class="tooltip-text">Ingresar nombre del proyecto que desea buscaaaaaaaaaaaaaaar</span>
+                                    <span class="tooltip-text">Filtro de búsqueda por nombre del proyecto</span>
                                 </span>
 
                                 <button className="lista-search-button" onClick={handleSearch}>Buscar</button>
@@ -197,29 +201,38 @@ const ListaProyectos = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-    {projects.map((pro) => (
-        <tr key={pro.id} onClick={() => irAMenuProyecto(pro.code)}>
-            <td>{pro.code}</td>
-            <td>{pro.name}</td>
-            <td>{new Date(pro.creationDate).toLocaleDateString()}</td>
-            <td>{new Date(pro.modificationDate).toLocaleDateString()}</td>
-            <td>{pro.status}</td>
-            <td>
-                <button className="botton-crud">
-                    <FaFolder style={{ color: "orange", cursor: "pointer" }} />
-                </button>
-                <button className="botton-crud">
-                    <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
-                </button>
-                <button
-                    className="botton-crud"
-                    onClick={() => deleteProject(pro.code)}
-                >
-                    <FaTrash style={{ color: "red", cursor: "pointer" }} />
-                </button>
-            </td>
-        </tr>
-    ))}
+                                {projects.map((pro) => (
+    <tr key={pro.id} onClick={() => irAMenuProyecto(pro.code)}>
+        <td>{pro.code}</td>
+        <td>{pro.name}</td>
+        <td>{new Date(pro.creationDate).toLocaleDateString()}</td>
+        <td>{new Date(pro.modificationDate).toLocaleDateString()}</td>
+        <td>{pro.status}</td>
+        <td>
+            <button className="botton-crud">
+                <FaFolder style={{ color: "orange", cursor: "pointer" }} />
+            </button>
+            <button
+                className="botton-crud"
+                onClick={(e) => {
+                    e.stopPropagation(); // Evita que el clic se propague al <tr>
+                    irAEditarProyecto(pro.id); // Llama a la función para editar
+                }}
+            >
+                <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
+            </button>
+            <button
+                className="botton-crud"
+                onClick={(e) => {
+                    e.stopPropagation(); // Evita que el clic se propague al <tr>
+                    deleteProject(pro.id); // Llama a la función de eliminación
+                }}
+            >
+                <FaTrash style={{ color: "red", cursor: "pointer" }} />
+            </button>
+        </td>
+    </tr>
+))}
 </tbody>
 
                             </table>

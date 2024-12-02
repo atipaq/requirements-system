@@ -102,12 +102,15 @@ const ActaAceptacion= () => {
 
                 <main className="acta-content">
                     <h2>ACTA DE ACEPTACION</h2>
+                    <span class="message">
                     <input
                         type="file"
                         accept=".jpg,.png,.jpeg,.pdf,.docx"
                         onChange={handleFileChange}
                         className="acta-button"
                     />
+                        <span class="tooltip-text">Seleccionar archivo de acta de aceptación del proyecto</span>
+                    </span>
                     <span>(.jpg .png .jpeg .pdf .docx)</span>
                      
                     <section className="acta-organization-section">

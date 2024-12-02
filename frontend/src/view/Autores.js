@@ -155,13 +155,16 @@ const Autores = () => {
                         <div className="autor-search-section-bar">
                             <button onClick={irANuevoAutor} className="autor-register-button">Nuevo Autor</button>
                             <div className="autor-sectionTextBuscar">
+                                <span class="message">
                                 <input
                                     className="autor-textBuscar"
                                     type="text"
                                     placeholder="Buscar"
                                     value={searchNombre}
                                     onChange={(e) => setSearchNombre(e.target.value)}
-                                />
+                                    />
+                                    <span class="tooltip-text">Filtrar información por código y/o nombre de autor</span>
+                                </span>
                                 <button className="autor-search-button" onClick={handleSearch}>Buscar</button>
                             </div>
                         </div>
@@ -219,8 +222,14 @@ const Autores = () => {
 
                         <h4 className="autor-h4">Total de registros {authors.length}</h4>
                         <div className="autor-export-buttons">
-                            <button className="autor-export-button" onClick={exportToExcel}>Excel</button>
-                            <button className="autor-export-button" onClick={exportToPDF}>PDF</button>
+                            <span class="message">
+                                <button className="autor-export-button" onClick={exportToExcel}>Excel</button>
+                                <span class="tooltip-text">Generar reporte de la lista de los proyecto en Excel</span>
+                            </span>
+                            <span class="message">
+                                <button className="autor-export-button" onClick={exportToPDF}>PDF</button>
+                                <span class="tooltip-text">Generar reporte de la lista de los proyecto en Pdf</span>
+                            </span>
                         </div>
 
                         <div className="search-section-bar">
