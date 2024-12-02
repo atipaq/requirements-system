@@ -12,6 +12,7 @@ import MenuProyecto from './view/MenuProyecto.js';
 import ActaAceptacion from './view/ActaAceptacion.js';
 import Autores from './view/Autores.js';
 import NuevoAutor from './view/NuevoAutor.js';
+import EditarAutor from './view/EditarAutor.js';
 import Roles from './view/Roles.js';
 import NuevoRol from './view/NuevoRol.js';
 import EditarRol from './view/EditarRol.js';
@@ -41,6 +42,7 @@ function App() {
           <Route path="/actaAceptacion" element={<ActaAceptacion />} />
           <Route path="/autores" element={<Autores />} />
           <Route path="/nuevoAutor" element={<NuevoAutor />} />
+          <Route path="/editarAutor" element={<EditarAutor />} />
           <Route path="/Roles" element={< Roles/>} />
           <Route path="/nuevoRol" element={<NuevoRol />} />
           <Route path="/editarRol" element={<EditarRol />} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaFolder, FaTrash } from "react-icons/fa";
+import { FaFolder, FaPencilAlt, FaTrash } from "react-icons/fa";
 import '../styles/stylesAutores.css'
 import '../styles/stylesEliminar.css'
 import '../styles/styles.css';
@@ -116,6 +116,9 @@ const Autores = () => {
     const irANuevoAutor = () => {
         navigate("/nuevoAutor");
     };
+    const irAEditarAutor = () => {
+        navigate("/editarAutor");
+    };
     const irALogin = () => {
         navigate("/");
     };
@@ -195,6 +198,15 @@ const Autores = () => {
                                             <td>
                                                 <button className="botton-crud">
                                                     <FaFolder style={{ color: "orange", cursor: "pointer" }} />
+                                                </button>
+                                                <button
+                                                    className="botton-crud"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation(); // Evita que el clic se propague al <tr>
+                                                        irAEditarAutor(); // Llama a la función para editar
+                                                    }}
+                                                >
+                                                    <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
                                                 </button>
                                                 <button
                                                     className="botton-crud"
