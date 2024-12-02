@@ -23,6 +23,10 @@ const MenuOrganizaciones = () => {
         navigate("/registroOrganizaciones");
     };
 
+    const irAEditarOrganizacion = (orgcod) => {
+        navigate(`/editarOrganizacion?orgcod=${orgcod}`);
+    };
+
     // Organizacion 
     const [mainOrganization, setMainOrganization] = useState(null);
     const [organizations, setOrganizations] = useState([]);
@@ -104,6 +108,19 @@ const MenuOrganizaciones = () => {
             link.click();
         } catch (err) {
             setError(err.response ? err.response.data.error : 'Error al exportar a PDF');
+        }
+    };
+    //Funcion para eliminar una organizacion
+    const deleteOrganization = async (orgcod) => {
+        if (window.confirm("¿Estás seguro de que deseas eliminar esta organizacion?")) {
+            try {
+                await axios.delete(`http://localhost:5000/api/organizations/${orgcod}`);
+                setOrganizations((prevOrganizations) => prevOrganizations.filter((org) => org.orgcod !== orgcod));
+                alert("Organizacion eliminada correctamente.");
+            } catch (err) {
+                console.error("Error al eliminar la organizacion:", err.response?.data || err.message);
+                alert(`Hubo un error al eliminarla organizacion: ${err.response?.data.error || err.message}`);
+            }
         }
     };
     return (
@@ -232,10 +249,12 @@ const MenuOrganizaciones = () => {
                                                 <button className="botton-crud">
                                                 <FaFolder style={{ color: "orange", cursor: "pointer" }} />
                                                 </button>
-                                                <button className="botton-crud">
+                                                <button className="botton-crud"onClick={(e) => {e.stopPropagation();  // Evita que el clic se propague al tr
+                                                    irAEditarOrganizacion(org.orgcod);}}>
                                                 <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
                                                 </button>
-                                                <button className="botton-crud">
+                                                <button className="botton-crud"onClick={(e) => {e.stopPropagation();  // Evita que el clic se propague al tr
+                                                    deleteOrganization(org.orgcod);}}>
                                                 <FaTrash style={{ color: "red", cursor: "pointer" }} />
                                                 </button>
                                             </td>

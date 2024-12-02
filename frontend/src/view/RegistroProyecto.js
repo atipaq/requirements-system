@@ -1,16 +1,20 @@
 // frontend/src/view/RegistroProyecto.js
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import '../styles/stylesRegistroProyecto.css';
 import '../styles/styles.css';
 
 const RegistroProyecto = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const irAMenuOrganizaciones = () => navigate("/menuOrganizaciones");
-    const irAListaProyecto = () => navigate("/listaProyectos");
+    const irAListaProyecto = () => navigate(`/listaProyectos?orgcod=${orgcod}`);
     const irALogin = () => navigate("/");
+
+    const queryParams = new URLSearchParams(location.search);
+    const orgcod = queryParams.get('orgcod');
 
     // Estado para los datos del proyecto
     const [projectData, setProjectData] = useState({
@@ -57,10 +61,10 @@ const RegistroProyecto = () => {
             const response = await axios.post("http://localhost:5000/api/projects", {
                 ...projectData,
                 status: "En proceso",
-                organizationId: "ORG-002", // Cambia si la organización tiene otro ID
+                organizationId: orgcod, // Cambia si la organización tiene otro ID
             });
             console.log("Proyecto registrado:", response.data);
-            navigate("/listaProyectos");
+            irAListaProyecto();
         } catch (error) {
             console.error("Error registrando proyecto:", error);
         }

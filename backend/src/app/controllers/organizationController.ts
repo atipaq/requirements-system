@@ -1,7 +1,8 @@
 // src/app/controllers/organizationController.ts
 import { Request, Response } from "express";
-import { findMainOrganization, findAllOrganizations, searchOrganizations } from "../../data/repositories/organizationRepository";
+import { findMainOrganization, findAllOrganizations, searchOrganizations} from "../../data/repositories/organizationRepository";
 import { OrganizationRepository } from "../../data/repositories/organizationRepository";
+import { UpdateResult } from "typeorm";
 
 export const getMainOrganization = async (req: Request, res: Response) => {
     try {
@@ -94,5 +95,58 @@ export const getLastOrganizationCode = async (req: Request, res: Response) => {
     } catch (error) {
         console.error("Error al obtener el último código de organización:", error);
         res.status(500).json({ message: "Error al obtener el último código de organización" });
+    }
+};
+
+export const deleteOrganization = async (req: Request, res: Response) => {
+    try {
+        const { orgcod } = req.params;
+
+        const project = await OrganizationRepository.findOne({ where: { orgcod: orgcod } });
+
+        if (!project) {
+            return res.status(404).json({ error: "Project not found" });
+        }
+
+        await OrganizationRepository.remove(project);
+        res.status(200).json({ message: "Project deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting project:", error);
+        res.status(500).json({ error: "Failed to delete project" });
+    }
+};
+
+export const getOrganizationById = async (req: Request, res: Response) => {
+    const { orgcod } = req.params;  // Obtiene el código de organización de la URL
+    try {
+        // Aquí debes obtener los datos de la organización desde tu base de datos
+        const organization = await OrganizationRepository.findOne({ where: { orgcod } });
+        if (organization) {
+            res.json(organization);  // Devuelve los datos de la organización
+        } else {
+            res.status(404).json({ message: "Organización no encontrada" });
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Error al obtener los datos de la organización", error: err });
+    }
+};
+
+export const updateOrganization = async (req: Request, res: Response) => {
+    const { orgcod } = req.params;  // Obtiene el código de organización de la URL
+    const updateData = req.body;  // Obtiene los datos de la organización a actualizar del cuerpo de la solicitud
+
+    try {
+        // Actualiza los datos de la organización en la base de datos
+        const result: UpdateResult = await OrganizationRepository.update({ orgcod }, updateData);
+
+        // Si se ha actualizado al menos una fila
+        if (result.affected && result.affected > 0) {
+            const updatedOrganization = await OrganizationRepository.findOne({ where: { orgcod } });
+            res.status(200).json(updatedOrganization);
+        } else {
+            res.status(404).json({ message: "Organización no encontrada" });
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Error al actualizar los datos de la organización", error: err });
     }
 };

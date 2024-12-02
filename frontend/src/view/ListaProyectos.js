@@ -23,7 +23,7 @@ const ListaProyectos = () => {
     };
 
     const irARegistroProyecto = () => {
-        navigate("/registroProyecto");
+        navigate(`/registroProyecto?orgcod=${orgcod}`);
     };
 
     const irALogin = () => {
@@ -100,7 +100,7 @@ const ListaProyectos = () => {
         if (window.confirm("¿Estás seguro de que deseas eliminar este proyecto?")) {
             try {
                 await axios.delete(`http://localhost:5000/api/projects/${procod}`);
-                setProjects((prevProjects) => prevProjects.filter((p) => p.procod !== procod));
+                fetchProjects();
                 alert("Proyecto eliminado correctamente.");
             } catch (err) {
                 console.error("Error al eliminar el proyecto:", err.response?.data || err.message);
@@ -216,7 +216,7 @@ const ListaProyectos = () => {
                 className="botton-crud"
                 onClick={(e) => {
                     e.stopPropagation(); // Evita que el clic se propague al <tr>
-                    irAEditarProyecto(pro.id); // Llama a la función para editar
+                    irAEditarProyecto(pro.code); // Llama a la función para editar
                 }}
             >
                 <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
@@ -225,7 +225,7 @@ const ListaProyectos = () => {
                 className="botton-crud"
                 onClick={(e) => {
                     e.stopPropagation(); // Evita que el clic se propague al <tr>
-                    deleteProject(pro.id); // Llama a la función de eliminación
+                    deleteProject(pro.code); // Llama a la función de eliminación
                 }}
             >
                 <FaTrash style={{ color: "red", cursor: "pointer" }} />
