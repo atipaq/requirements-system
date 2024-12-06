@@ -129,15 +129,18 @@ const RegistroProyecto = () => {
                         <div className="rp-cod-vers">
                             <div className="fiel-cod">
                                 <h4>Nombre</h4>
-                                <input
-                                    className="inputnombre-field"
-                                    type="text"
-                                    name="name"
-                                    value={projectData.name}  // Mostrar el nombre desde el estado
-                                    onChange={handleChange}
-                                    placeholder="Ingrese el nombre del proyecto"
-                                    size="125"
-                                />
+                                <span class="message">
+                                    <input
+                                        className="inputnombre-field"
+                                        type="text"
+                                        name="name"
+                                        value={projectData.name}  // Mostrar el nombre desde el estado
+                                        onChange={handleChange}
+                                        size="125"
+                                    />
+                                    <span class="tooltip-text"> Ingresar el nombre del proyecto </span>
+                                </span>
+                                
                             </div>
                         </div>
 

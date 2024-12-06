@@ -20,6 +20,8 @@ import Entrevistas from './view/Entrevistas.js';
 import NuevaEntrevista from './view/NuevaEntrevista.js';
 import EditarEntrevista from './view/EditarEntrevista.js';
 import EditarOrganizacion from './view/EditarOrganizacion.js';
+import EditarActaAceptacion from './view/EditarActaAceptacion.js';
+import NuevaEvidencia from './view/NuevaEvidencia.js';
 
 function App() {
   return (
@@ -52,6 +54,11 @@ function App() {
           <Route path="/editarEntrevista" element={<EditarEntrevista />} />
           <Route path="/editarOrganizacion" element={<EditarOrganizacion />} />
           <Route path="/editarProyecto/:id" element={<EditarProyecto />} />
+          <Route path="/editaractaAceptacion" element={<EditarActaAceptacion />} />
+          <Route path="/nuevaEvidencia" element={<NuevaEvidencia />} />
+
+
+
         </Routes>
       </div>
     </Router>
