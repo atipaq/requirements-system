@@ -163,7 +163,7 @@ const EditarProyecto = () => {
                                         placeholder=""
                                         size="125"
                                     />
-                                    <span class="tooltip-text">Nombre del proyecto</span>
+                                    <span class="tooltip-text">Editar el nombre del proyecto</span>
                                 </span>
                             </div>
                         </div>

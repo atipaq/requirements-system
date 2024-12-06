@@ -184,13 +184,18 @@ const MenuOrganizaciones = () => {
                         <h3>Organizaciones</h3>
 
                         <div className="sectionTextBuscar">
-                            <input
-                                className="textBuscar"
-                                type="text"
-                                placeholder="Buscar por nombre"
-                                value={searchNombre}
-                                onChange={(e) => setSearchNombre(e.target.value)}
-                            />
+                            <span class="message">
+                                <input
+                                    className="textBuscar"
+                                    type="text"
+                                    size="125"
+                                    placeholder="Buscar por nombre"
+                                    value={searchNombre}
+                                    onChange={(e) => setSearchNombre(e.target.value)}
+                                />
+                                <span class="tooltip-text"> Buscar por la fecha </span>
+                            </span>
+                           
                             <button className="search-button" onClick={handleSearch}>Buscar</button>
                         </div>
 

@@ -134,7 +134,7 @@ const EditarOrganizacion = () => {
                 </aside>
 
                 <main className="ro-content">
-                    <h2>{orgcod ? "MODIFICAR ORGANIZACIÓN" : "NUEVO ORGANIZACIÓN"}</h2>
+                    <h2>{orgcod ? "MODIFICAR ORGANIZACIÓN" : "EDITAR ORGANIZACIÓN"}</h2>
                     <section className="ro-organization">
                         <h3>
                             <label className="ro-codigo">Código </label>
@@ -157,50 +157,85 @@ const EditarOrganizacion = () => {
                     <section className="ro-organization-section">
                         {/* Formulario editable */}
                         <h3>Información de la Organización</h3>
-                        <div className="ro-cod-vers">
+                         <div className="ro-cod-vers">
                             <div className="ro-fiel-cod">
                                 <h4>Nombre</h4>
-                                <input className="inputnombre-field" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} size="30" />
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} size="30" />
+                                    <span class="tooltip-text">Editar el nombre del proyecto</span>
+                                </span>
+                                
                             </div>
                             <div className="ro-fiel-vers">
                                 <h4>Dirección</h4>
-                                <input className="inputnombre-field" type="text" value={direccion} onChange={(e) => setDireccion(e.target.value)} size="30" />
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={direccion} onChange={(e) => setDireccion(e.target.value)} size="30" />
+                                    <span class="tooltip-text">Editar la direccion del proyecto </span>
+                                </span>
                             </div>
                             <div className="ro-fiel-fecha">
                                 <h4>Teléfono Organización</h4>
+                                <span class="message">
                                 <input className="inputnombre-field" type="text" value={telefonoOrganizacion} onChange={(e) => setTelefonoOrganizacion(e.target.value)} size="30" />
+                                    <span class="tooltip-text">Editar el numero telefonico o celular de la organización </span>
+                                </span>
                             </div>
                         </div>
 
                         <div className="ro-cod-vers">
                             <div className="ro-fiel-cod">
                                 <h4>Representante Legal</h4>
-                                <input className="inputnombre-field" type="text" value={representanteLegal} onChange={(e) => setRepresentanteLegal(e.target.value)} size="30" />
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={representanteLegal} onChange={(e) => setRepresentanteLegal(e.target.value)} size="30" />
+                                    <span class="tooltip-text"> Editar apellidos y nombres del representante legal de la organización </span>
+                                </span>
+                                
                             </div>
                             <div className="ro-fiel-vers">
                                 <h4>Teléfono Representante</h4>
-                                <input className="inputnombre-field" type="text" value={telefonoRepresentante} onChange={(e) => setTelefonoRepresentante(e.target.value)} size="30" />
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={telefonoRepresentante} onChange={(e) => setTelefonoRepresentante(e.target.value)} size="30" />  
+                                    <span class="tooltip-text"> Editar el numero telefonico o celular del representante legal </span>
+                                </span>
+                                
                             </div>
                             <div className="ro-fiel-fecha">
                                 <h4>RUC Organización</h4>
-                                <input className="inputnombre-field" type="text" value={ruc} onChange={(e) => setRuc(e.target.value)} size="30" />
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={ruc} onChange={(e) => setRuc(e.target.value)} size="30" />  
+                                    <span class="tooltip-text"> Editar el numero de Ruc de la organizacion </span>
+                                </span>
+                            
                             </div>
                         </div>
 
                         <div className="ro-cod-vers">
                             <div className="ro-fiel-cod">
                                 <h4>Contacto (Nombre y Apellido)</h4>
-                                <input className="inputnombre-field" type="text" value={contacto} onChange={(e) => setContacto(e.target.value)} size="30" />
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={contacto} onChange={(e) => setContacto(e.target.value)} size="30" />
+                                    <span class="tooltip-text"> Editar los apellidos y nombres del contacto en la organización </span>
+                                </span>
+                                
                             </div>
                             <div className="ro-fiel-vers">
-                                <h4>Teléfono Contacto</h4>
-                                <input className="inputnombre-field" type="text" value={telefonoContacto} onChange={(e) => setTelefonoContacto(e.target.value)} size="30" />
+                                <h4>Teléfono del Contacto</h4>
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={telefonoContacto} onChange={(e) => setTelefonoContacto(e.target.value)} size="30" />
+                                    <span class="tooltip-text"> Editar el nuemero teléfonico o celular del contacto </span>
+                                </span>
+                                
                             </div>
                             <div className="ro-fiel-fecha">
                                 <h4>Estado</h4>
-                                <input className="inputnombre-field" type="text" value={estado} onChange={(e) => setEstado(e.target.value)} size="30" />
-                            </div>
+                                <span class="message">
+                                    <input className="inputnombre-field" type="text" value={estado} onChange={(e) => setEstado(e.target.value)} size="30" />
+                                    <span class="tooltip-text"> Editar el nuemero teléfonico o celular del contacto </span>
+                                </span>
+                                
+                            </div>   
                         </div>
+                    
                     </section>
                     <section className="ro-organizations-section">
                         <h3>Comentario</h3>
