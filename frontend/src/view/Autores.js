@@ -196,9 +196,9 @@ const Autores = () => {
                                             <td>{aut.autVer}</td>
                                             <td>{aut.autRol}</td>
                                             <td>
-                                                <button className="botton-crud">
+                                                {/*<button className="botton-crud">
                                                     <FaFolder style={{ color: "orange", cursor: "pointer" }} />
-                                                </button>
+                                                </button>*/}
                                                 <button
                                                     className="botton-crud"
                                                     onClick={(e) => {

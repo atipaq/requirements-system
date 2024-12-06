@@ -20,8 +20,5 @@ router.get("/proyectos", getProject);
 router.get("/buscar/:code", getProjectById)
 router.put("/proyectos/:code", updateProject);
 
-//router.get("/api/projects/:id", getProjectById);
-//router.put("/api/projects/:id", updateProject);
-
 router.delete("/:procod", deleteProject)
 export default router;

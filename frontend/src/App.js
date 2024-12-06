@@ -52,7 +52,7 @@ function App() {
           <Route path="/nuevaEntrevista" element={<NuevaEntrevista />} />
           <Route path="/editarEntrevista" element={<EditarEntrevista />} />
           <Route path="/editarOrganizacion" element={<EditarOrganizacion />} />
-          <Route path="/editarProyecto/:id" element={<EditarProyecto />} />
+          <Route path="/editarProyecto" element={<EditarProyecto />} />
         </Routes>
       </div>
     </Router>
