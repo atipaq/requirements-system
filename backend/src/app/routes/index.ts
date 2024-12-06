@@ -13,8 +13,12 @@ import actaRouter from './actaaceptacion';
 const router = Router();
 
 router.use('/auth', authRouter);
+
+//Organizations
 router.use('/organizations', organizationRoutes);
 router.get("/organizations/last", getLastOrganizationCode);
+
+//Projects
 router.use('/projects', projectRoutes);
 
 //Authors

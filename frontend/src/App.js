@@ -38,7 +38,6 @@ function App() {
           <Route path="/registroOrganizaciones" element={<RegistroOrganizacion />} />
           <Route path="/listaProyectos" element={<ListaProyectos />} />
           <Route path="/registroProyecto" element={<RegistroProyecto />} />
-
           <Route path="/menuProyecto" element={<MenuProyecto />} />
           <Route path="/actaAceptacion" element={<ActaAceptacion />} />
           <Route path="/autores" element={<Autores />} />
@@ -51,7 +50,7 @@ function App() {
           <Route path="/nuevaEntrevista" element={<NuevaEntrevista />} />
           <Route path="/editarEntrevista" element={<EditarEntrevista />} />
           <Route path="/editarOrganizacion" element={<EditarOrganizacion />} />
-          <Route path="/editarProyecto/:id" element={<EditarProyecto />} />
+          <Route path="/editarProyecto" element={<EditarProyecto />} />
         </Routes>
       </div>
     </Router>

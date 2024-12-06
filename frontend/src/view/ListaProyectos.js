@@ -18,9 +18,9 @@ const ListaProyectos = () => {
     navigate(`/menuProyecto?procod=${code}`);
   };
   //Modificar
-  const irAEditarProyecto = (projectId) => {
-    console.log("ID del proyecto desde listaProyecto:", projectId);
-    navigate(`/editarProyecto/${projectId}`);
+  const irAEditarProyecto = (code) => {
+    console.log("ID del proyecto desde listaProyecto:", code);
+    navigate(`/editarProyecto?code=${code}`);
   };
 
   const irARegistroProyecto = () => {
@@ -244,16 +244,16 @@ const ListaProyectos = () => {
                       </td>
                       <td>{pro.status}</td>
                       <td>
-                        <button className="botton-crud">
+                        {/*<button className="botton-crud">
                           <FaFolder
                             style={{ color: "orange", cursor: "pointer" }}
                           />
-                        </button>
+                        </button>*/}
                         <button
                           className="botton-crud"
                           onClick={(e) => {
                             e.stopPropagation(); // Evita que el clic se propague al <tr>
-                            irAEditarProyecto(pro.id); // Llama a la función para editar
+                            irAEditarProyecto(pro.code); // Llama a la función para editar
                           }}
                         >
                           <FaPencilAlt

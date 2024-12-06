@@ -1,14 +1,11 @@
 // backend/src/data/entities/Project.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn, BeforeInsert } from "typeorm";
+import { Entity,PrimaryColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn, BeforeInsert } from "typeorm";
 import { Organization } from "./Organization";
 import { ActaAceptacion } from "./ActaAceptacion";
 
 @Entity()
 export class Project {
-    @PrimaryGeneratedColumn()
-    id!: number;
-
-    @Column({ unique: true })
+    @PrimaryColumn({ unique: true })
     code!: string;
 
     @Column()

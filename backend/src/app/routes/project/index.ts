@@ -1,7 +1,7 @@
 // backend/src/app/routes/project/index.ts
 import { Router } from "express";
 import { createProject, deleteProject,updateProject,getProjectById } from "../../controllers/projectController";
-import {getProjectsByOrganization} from "../../controllers/projectController"
+import {getProjectsByOrganization, getProject } from "../../controllers/projectController"
 
 const router = Router();
 
@@ -16,10 +16,12 @@ router.get("/initial", (req, res) => {
     res.status(200).json(initialData);
 });
 // Ruta para actualizar un proyecto
-router.get("/api/projects/:id", getProjectById);
-router.put("/api/projects/:id", updateProject);
+router.get("/proyectos", getProject);
+router.get("/buscar/:code", getProjectById)
+router.put("/proyectos/:code", updateProject);
 
-
+//router.get("/api/projects/:id", getProjectById);
+//router.put("/api/projects/:id", updateProject);
 
 router.delete("/:procod", deleteProject)
 export default router;

@@ -1,6 +1,6 @@
 // frontend/src/view/EditarProyecto.js
 import React, { useState, useEffect } from "react";
-import {useParams, useNavigate } from "react-router-dom";
+import {useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../styles/stylesRegistroProyecto.css';
 import '../styles/styles.css';
@@ -12,9 +12,13 @@ const EditarProyecto = () => {
     const irAListaProyecto = () => navigate("/listaProyectos");
     const irALogin = () => navigate("/");
 
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const code = queryParams.get('code');
+      // Obtiene el ID de la organización desde la URL
 
-    const { id } = useParams(); // Obtener el ID del proyecto desde la URL
-    console.log("ID del proyecto:", id);
+    //const { id } = useParams(); // Obtener el ID del proyecto desde la URL
+    console.log("ID del proyecto:", code);
     // Valores iniciales
     const [codigoProyecto, setCodigoProyecto] = useState("");
     const [versionProyecto, setVersionProyecto] = useState("0.01");
@@ -26,55 +30,69 @@ const EditarProyecto = () => {
 
     // Cargar los datos del proyecto al montar el componente
     useEffect(() => {
-        if (id) {
-            axios.get(`http://localhost:5000/api/projects/${id}`)
-                .then((response) => {
-                    const { code, name, creationDate, modificationDate, status, comments } = response.data;
-                    setCodigoProyecto(code);
-                    setNombreProyecto(name);
-                    setFechaCreacionProyecto(creationDate);
-                    setFechaModificacionProyecto(modificationDate);
-                    setEstadoProyecto(status);
-                    setComentariosProyecto(comments);
-                })
-                .catch((error) => {
+        if (code) {
+            // Fetch data de la organización a editar
+            const fetchOrganizationData = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:5000/api/projects/buscar/${code}`);
+                    const proyData = response.data;
+                    setCodigoProyecto(proyData.code);
+                    setNombreProyecto(proyData.name);
+                    setFechaCreacionProyecto(proyData.creationDate);
+                    setFechaModificacionProyecto(proyData.modificationDate);
+                    setEstadoProyecto(proyData.status);
+                    setComentariosProyecto(proyData.comments);
+                    console.log("Proyecto extraido:", response.data);
+                    
+                } catch (error) {
                     console.error("Error al cargar el proyecto:", error);
                     alert("Error al cargar el proyecto");
-                });
+                }
+
+            };
+            fetchOrganizationData();
+           
         } else {
-            console.error("El ID del proyecto no es válido");
-            alert("ID del proyecto no válido");
+            // Si no existe orgcod, es un nuevo registro, precargar datos automáticos
+            const fetchAutomaticData = async () => {
+                try {
+                    const response = await axios.get("http://localhost:5000/api/projects/last");
+                    const nextCode = response.data.nextCode || "PROJ-001";
+                    setCodigoProyecto(nextCode);
+                    setFechaModificacionProyecto(new Date().toLocaleDateString());
+                } catch (error) {
+                    console.error("Error al obtener datos automáticos:", error);
+                    alert("No se pudieron cargar los datos automáticos.");
+                }
+            };
+            fetchAutomaticData();
         }
-    }, [id]);
+    }, [code]);
 
     // Manejar la actualización del proyecto
-    const handleUpdate = () => {
-        if (!id) {
-            alert("El ID del proyecto es inválido.");
-            return;
-        }
-    
-        const updatedProject = {
-            name: nombreProyecto,
-            status: estadoProyecto,
-            comments: comentariosProyecto,
-        };
-    
-        console.log("ID recibido:", id);
-    
-        axios.put(`http://localhost:5000/api/projects/${id}`, updatedProject)
-            .then(() => {
-                alert("Proyecto actualizado correctamente");
-                navigate("/listaProyectos");
-            })
-            .catch((error) => {
-                if (error.response?.status === 404) {
-                    alert("El proyecto no fue encontrado.");
-                } else {
-                    console.error("Error al actualizar el proyecto:", error);
-                    alert("Error al actualizar el proyecto");
-                }
+    const handleUpdate = async (e) => {
+        //console.log("ID del proyecto para modificar:", code);
+        //console.log("Endpoint:", `http://localhost:5000/api/projects/${code}`);
+        //console.log("Datos enviados:", proyData);
+        e.preventDefault();
+        try {
+            const response = await axios.put(`http://localhost:5000/api/projects/proyectos/${code}`, {
+                code: codigoProyecto,
+                name: nombreProyecto,
+                creationDate: fechaCreacionProyecto,
+                modificationDate: fechaModificacionProyecto,
+                status: estadoProyecto,
+                comments: comentariosProyecto,
+                
             });
+            console.log("Proyecto modificados:", response.data);
+            if (response.status === 200) {
+                alert("Proyecto editada correctamente");
+                irAListaProyecto();
+            }
+        } catch (error) {
+            console.error("Error al editar el proyecto: " + error);
+        }
     };
     return (
         <div className="rp-container">
@@ -204,7 +222,7 @@ const EditarProyecto = () => {
                         </div>
                         <div className="rp-buttons">
                     <button onClick={() => navigate("/listaProyectos")} className="rp-button">Cancelar</button>
-                    <button onClick={handleUpdate} className="rp-button">Registrar Proyecto</button>
+                    <button onClick={handleUpdate} className="rp-button">{code? "Guardar Cambios" : "Registrar Proyecto"}</button>
                 </div>
                     </section>
                 </main>

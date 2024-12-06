@@ -1,9 +1,10 @@
 // backend/src/app/controllers/projectController.ts
 import { Request, Response } from "express";
-import { projectRepository } from "../../data/repositories/projectRepository";
+import { findAllProject, projectRepository } from "../../data/repositories/projectRepository";
 import { AppDataSource } from "../../config/data-source";
 import { Organization } from "../../data/entities/Organization";
-import { Project } from "../../data/entities/Project";
+//import { Project } from "../../data/entities/Project";
+import { UpdateResult } from "typeorm";
 
 export const createProject = async (req: Request, res: Response) => {
     try {
@@ -95,25 +96,69 @@ export const deleteProject = async (req: Request, res: Response) => {
 };
 
 
+export const getProject = async (req: Request, res: Response) => {
+    try {
+        const project = await findAllProject();
+        res.json(project);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al obtener los proyectos" });
+    }
+};
+
+export const getProjectById = async (req: Request, res: Response) => {
+    const { code } = req.params;  // Obtiene el código de organización de la URL
+    try {
+        // Aquí debes obtener los datos de la organización desde tu base de datos
+        const project = await projectRepository.findOne({ where: { code } });
+        if (project) {
+            res.json(project);  // Devuelve los datos de la organización
+        } else {
+            res.status(404).json({ message: "Organización no encontrada" });
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Error al obtener los datos de la organización", error: err });
+    }
+};
+
+export const updateProject = async (req: Request, res: Response) => {
+    const { code } = req.params;
+    const updateData = req.body;
+
+    try {
+        // Verifica si el proyecto existe
+        const existingProject = await projectRepository.findOne({ where: { code } });
+        if (!existingProject) {
+            return res.status(404).json({ message: "Proyecto no encontrado" });
+        }
+
+        // Actualiza el proyecto
+        const result: UpdateResult = await projectRepository.update(
+            { code },
+            { ...updateData, modificationDate: new Date() } // Actualiza la fecha de modificación
+        );
+
+        // Devuelve el proyecto actualizado
+        const updatedProject = await projectRepository.findOne({ where: { code } });
+        res.status(200).json(updatedProject);
+    } catch (err) {
+        res.status(500).json({ message: "Error al actualizar el proyecto", error: err });
+    }
+};
+
+/*
 // Controlador para actualizar un proyecto
 export const updateProject = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { name, status, comments } = req.body;
-
-    console.log("ID recibido para actualizar:", id);
-    console.log("Datos recibidos para actualizar:", req.body);
-
-    if (!id || isNaN(parseInt(id))) {
-        return res.status(400).json({ message: "ID inválido" });
-    }
+    const { code } = req.params;
+    const { name, status, comments} = req.body;
 
     try {
         const projectRepository = AppDataSource.getRepository(Project);
-        const project = await projectRepository.findOneBy({ id: parseInt(id) });
+        const project = await projectRepository.findOneBy({ code: code });
 
         if (!project) {
-            console.error(`Proyecto con ID ${id} no encontrado.`);
-            return res.status(404).json({ message: `Proyecto con ID ${id} no encontrado` });
+            console.error(`Proyecto con ID ${code} no encontrado.`);
+            return res.status(404).json({ message: `Proyecto con ID ${code} no encontrado` });
         }
 
         // Actualizar campos
@@ -133,19 +178,22 @@ export const updateProject = async (req: Request, res: Response) => {
 };
 
 export const getProjectById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { code} = req.params;
 
     try {
         const projectRepository = AppDataSource.getRepository(Project);
-        const project = await projectRepository.findOneBy({ id: parseInt(id) });
+        const project = await projectRepository.findOneBy({ code: code });
 
         if (!project) {
-            return res.status(404).json({ message: "Proyecto no encontrado" });
+            console.error(`Proyecto con ID ${code} no encontrado.`);
+            return res.status(404).json({ message: `Proyecto con ID ${code} no encontrado.` });
         }
 
+        console.log("Proyecto encontrado:", project); // Log de depuración
         res.status(200).json(project);
     } catch (error) {
         console.error("Error al obtener el proyecto:", error);
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ message: "Error interno del servidor." });
     }
-};
+};*/
+

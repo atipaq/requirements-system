@@ -168,8 +168,9 @@ const MenuOrganizaciones = () => {
                                             <td>{mainOrganization.orgfeccrea}</td>
                                             <td>{mainOrganization.orgver}</td>
                                             <td>
-                                                <button className="botton-crud"><FaFolder style={{ color: "orange", cursor: "pointer" }} /></button>
+                                                {/*<button className="botton-crud"><FaFolder style={{ color: "orange", cursor: "pointer" }} /></button>
                                                 <button className="botton-crud"><FaPencilAlt style={{ color: "blue", cursor: "pointer" }} /></button>
+                                            */}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -246,9 +247,9 @@ const MenuOrganizaciones = () => {
                                             <td>{org.orgfeccrea}</td>
                                             <td>{org.orgver}</td>
                                             <td>
-                                                <button className="botton-crud">
+                                                {/*<button className="botton-crud">
                                                 <FaFolder style={{ color: "orange", cursor: "pointer" }} />
-                                                </button>
+                                                </button>*/}
                                                 <button className="botton-crud"onClick={(e) => {e.stopPropagation();  // Evita que el clic se propague al tr
                                                     irAEditarOrganizacion(org.orgcod);}}>
                                                 <FaPencilAlt style={{ color: "blue", cursor: "pointer" }} />
