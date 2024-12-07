@@ -22,6 +22,12 @@ import EditarEntrevista from './view/EditarEntrevista.js';
 import EditarOrganizacion from './view/EditarOrganizacion.js';
 import EditarActaAceptacion from './view/EditarActaAceptacion.js';
 import NuevaEvidencia from './view/NuevaEvidencia.js';
+import Expertos from './view/Expertos.js';
+import Fuentes from './view/Fuentes.js';
+import NuevaFuente from './view/NuevaFuente.js';
+import EditarFuente from './view/EditarFuente.js';
+import NuevoExperto from './view/NuevoExperto.js';
+import EditarExperto from './view/EditarExperto.js';
 
 function App() {
   return (
@@ -52,7 +58,19 @@ function App() {
           <Route path="/nuevaEntrevista" element={<NuevaEntrevista />} />
           <Route path="/editarEntrevista" element={<EditarEntrevista />} />
           <Route path="/editarOrganizacion" element={<EditarOrganizacion />} />
-          <Route path="/editarProyecto" element={<EditarProyecto />} />
+
+          <Route path="/editarProyecto/:id" element={<EditarProyecto />} />
+          <Route path="/editaractaAceptacion" element={<EditarActaAceptacion />} />
+          <Route path="/nuevaEvidencia" element={<NuevaEvidencia />} />
+          <Route path="/expertos" element={<Expertos />} />   
+          <Route path="/fuentes" element={<Fuentes />} />   
+          <Route path="/nuevaFuente" element={<NuevaFuente />} /> 
+          <Route path="/editarFuente" element={<EditarFuente />} /> 
+          <Route path="/nuevoExperto" element={<NuevoExperto />} /> 
+          <Route path="/editarExperto" element={<EditarExperto />} /> 
+
+
+
         </Routes>
       </div>
     </Router>
